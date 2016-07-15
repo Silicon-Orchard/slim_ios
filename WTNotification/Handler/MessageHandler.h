@@ -30,6 +30,11 @@
 -(NSString *)getUUID;
 -(NSString *)getIPAddress;
 
--(NSString *)oneToOneChatAcceptMessage;
+
+-(NSString *)requestInfoAtStartMessage;
+-(NSString *)acknowledgeDeviceInNetwork;
+-(NSString *)leftApplicationMessage;
+
+-(NSArray *)jsonStringArrayWithFile:(NSString *)fileName OfType:(int)type;
 
 @end

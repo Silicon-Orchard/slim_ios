@@ -33,7 +33,7 @@
     NSError *error = nil;
     self.asyncUdpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
 
-    if (![self.asyncUdpSocket bindToPort:WALKIETALKIE_UINT_PORT error:&error]) {
+    if (![self.asyncUdpSocket bindToPort:WTNOTIFICATION_PORT_NORMAL error:&error]) {
         NSLog(@"bind failed with error %@", [error localizedDescription]);
         //         [self createSocketWithPort:WALKIETALKIE_UINT_PORT];
     };
@@ -47,8 +47,21 @@
 
 
 -(void)sendMessage:(NSString *)message toIPAddress:(NSString *)IPAddress {
-    //    NSLog(@"data sent to %@", IPAddress);
-    [self.asyncUdpSocket sendData:[message dataUsingEncoding:NSUTF8StringEncoding] toHost:IPAddress port:WALKIETALKIE_UINT_PORT withTimeout:3 tag:0];
+
+    [self.asyncUdpSocket sendData:[message dataUsingEncoding:NSUTF8StringEncoding]
+                           toHost:IPAddress
+                             port:WTNOTIFICATION_PORT_NORMAL
+                      withTimeout:3
+                              tag:0];
+}
+
+-(void)sendFileMessage:(NSString *)message toIPAddress:(NSString *)IPAddress {
+
+    [self.asyncUdpSocket sendData:[message dataUsingEncoding:NSUTF8StringEncoding]
+                           toHost:IPAddress
+                             port:WTNOTIFICATION_PORT_FILE
+                      withTimeout:3
+                              tag:0];
 }
 
 
@@ -93,44 +106,27 @@
     uint16_t senderport;
     int senderSocketFamily;
     [GCDAsyncUdpSocket getHost:&hostIP port:&senderport family:&senderSocketFamily fromAddress:address];
-    uint16_t receiverPort = sock.localPort;
+    //uint16_t receiverPort = sock.localPort;
     
     NSDictionary* userInfo = @{@"receievedData": data};
-    [[NSNotificationCenter defaultCenter] postNotificationName:MESSAGE_RECEIVED_NOTIFICATIONKEY object:nil userInfo:userInfo];
+
     NSDictionary *jsonDict = [NSJSONSerialization  JSONObjectWithData:data options:0 error:nil];
     NSLog(@"received: %@", jsonDict);
     
     
     
-    NSNumber *messageType = [jsonDict objectForKey:JSON_KEY_TYPE];
-    NSNumber *channelID  = [jsonDict objectForKey:JSON_KEY_CHANNEL];
-    int type = [messageType intValue];
-    
-    if (receiverPort == WALKIETALKIE_VOICE_STREAMER_PORT) {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:VOICE_STREAM_RECEIEVED_NOTIFICATIONKEY object:nil userInfo:userInfo];
-        return;
-    }
-    else{
-        if (!type) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:VOICE_MESSAGE_RECEIEVED_NOTIFICATIONKEY object:nil userInfo:userInfo];
-            return;
-        }
-    }
+    int messageType = [(NSNumber*)[jsonDict objectForKey:JSON_KEY_TYPE] intValue];
     
     
-    switch (type) {
-            
-        case TYPE_MESSAGE:
-
-            break;
+    
+    switch (messageType) {
             
         case TYPE_REQUEST_INFO:
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEW_DEVICE_CONNECTED_NOTIFICATIONKEY object:nil userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_NEW_DEVICE_JOINED object:nil userInfo:userInfo];
             break;
             
         case TYPE_RECEIVE_INFO:
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEW_DEVICE_CONFIRMED_NOTIFICATIONKEY object:nil userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED object:nil userInfo:userInfo];
             break;
             
         default:

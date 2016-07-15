@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+
+@protocol NewDeviceNotificationDelegate <NSObject>
+-(void) newDeviceJoined:(User*)user;
+-(void) newDeviceConfirmed:(User*)user;
+@end
+
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+    
+    id myAppDelegate;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

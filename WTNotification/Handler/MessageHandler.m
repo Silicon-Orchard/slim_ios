@@ -33,7 +33,7 @@
     
     //Simulator
     
-    return @"192.168.1.106";
+    return @"192.168.1.104";
     
 #else
     
@@ -67,13 +67,66 @@
 }
 
 
+
+
+-(NSString *)requestInfoAtStartMessage{
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_REQUEST_INFO],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus
+                                      };
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
+}
+
+-(NSString *)acknowledgeDeviceInNetwork{
+    
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_RECEIVE_INFO],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus
+                                      };
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
+}
+
+-(NSString *)leftApplicationMessage {
+    
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_LEFT_APPLICATION],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName
+                                      };
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
+}
+
+
+
 #pragma mark - TYPE_MESSAGE
 
 -(NSString *)createChatMessageWithChannelID:(int) channelID deviceName:(NSString *)deviceNameForChannel chatmessage:(NSString *)message{
     
-    
-    NSDictionary * postDictionary = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_UUID_KEY_FORUSERDEFAULTS], deviceNameForChannel, [self getIPAddress ],[NSNumber numberWithInt:TYPE_MESSAGE], [NSNumber numberWithInt:channelID], message,nil]
-                                                                forKeys:[NSArray arrayWithObjects:JSON_KEY_DEVICE_ID, JSON_KEY_DEVICE_NAME,JSON_KEY_IP_ADDRESS, JSON_KEY_TYPE, JSON_KEY_CHANNEL,  JSON_KEY_MESSAGE,nil]];
+    NSDictionary * postDictionary;
+//    NSDictionary * postDictionary = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_UUID_KEY_FORUSERDEFAULTS], deviceNameForChannel, [self getIPAddress ],[NSNumber numberWithInt:TYPE_MESSAGE], [NSNumber numberWithInt:channelID], message,nil]
+//                                                                forKeys:[NSArray arrayWithObjects:JSON_KEY_DEVICE_ID, JSON_KEY_DEVICE_NAME,JSON_KEY_IP_ADDRESS, JSON_KEY_TYPE, JSON_KEY_CHANNEL,  JSON_KEY_MESSAGE,nil]];
     
     NSError * error = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
@@ -83,18 +136,38 @@
 }
 
 
-#pragma mark - One to One Chat Message
+#pragma mark - File Message
 
--(NSString *)oneToOneChatRequestMessage{
+- (NSArray *)jsonStringArrayWithFile:(NSString *)fileName OfType:(int)type{
+    
+    NSMutableArray *JSONStringArray = [[NSMutableArray alloc] init];
+    NSArray *encodedStringChunksArray = [[FileHandler sharedHandler] encodedStringChunksWithFile:fileName OfType:type];
     
     
-    NSDictionary * postDictionary = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_UUID_KEY_FORUSERDEFAULTS], [UIDevice currentDevice].name, [self getIPAddress ],[NSNumber numberWithInt:TYPE_ONE_TO_ONE_CHAT_REQUEST], nil]
-                                                                forKeys:[NSArray arrayWithObjects:JSON_KEY_DEVICE_ID, JSON_KEY_DEVICE_NAME,JSON_KEY_IP_ADDRESS, JSON_KEY_TYPE,  nil]];
+    NSUInteger chunkCount = encodedStringChunksArray.count;
+
     
-    NSError * error = nil;
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    return resultAsString;
+    for (int i = 0; i < encodedStringChunksArray.count; i++) {
+        
+        NSError * error = nil;
+        
+        NSDictionary * postDictionary = @{
+                                          JSON_KEY_TYPE : @(TYPE_FILE_MESSAGE),
+                                          JSON_KEY_DEVICE_NAME : [UserHandler sharedInstance].mySelf.profileName,
+                                          JSON_KEY_IP_ADDRESS: [UserHandler sharedInstance].mySelf.deviceIP,
+                                          JSON_KEY_FILE_TYPE: @(type),
+                                          JSON_KEY_FILE_NAME: fileName,
+                                          JSON_KEY_FILE_MESSAGE: [encodedStringChunksArray objectAtIndex:i],
+                                          JSON_KEY_FILE_CHUNK_COUNT: @(chunkCount),
+                                          JSON_KEY_FILE_CURRENT_CHUNK: @(i+1)
+                                          };
+        
+        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [JSONStringArray addObject:resultAsString];
+    }
+    
+    return JSONStringArray;
 }
 
 

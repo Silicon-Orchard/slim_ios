@@ -10,16 +10,19 @@
 
 @interface User : NSObject
 
-@property (nonatomic, strong) NSString *deviceIP;
-@property (nonatomic, strong) NSString *deviceID;
-@property (nonatomic, strong) NSString *deviceName;
 @property BOOL isActive;
 
+@property (nonatomic, strong) NSString *deviceIP;
+@property (nonatomic, strong) NSString *deviceID;
 
--(instancetype)initWithDictionary:(NSDictionary *)jsonDict;
+@property (nonatomic, strong) NSString *profileName;
+@property (nonatomic, strong) NSString *profileStatus;
+@property (nonatomic, strong) NSString *profileImageName;
+
+
+
 -(instancetype)initWithDictionary:(NSDictionary *)jsonDict andActive:(BOOL)active;
--(instancetype)initWithIP:(NSString *)ip deviceID:(NSString* )ID name:(NSString*)name andActive:(BOOL)active;
-
+-(instancetype)initWithIP:(NSString *)ip deviceID:(NSString* )ID name:(NSString*)name status:(NSString *)status imageName:(NSString *)imageName andActive:(BOOL)active;
 
 
 @end

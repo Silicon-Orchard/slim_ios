@@ -12,6 +12,10 @@
 #define kBufferByteSize 8096
 
 
+#define WTNOTIFICATION_PORT_NORMAL ((uint16_t) 43321)
+#define WTNOTIFICATION_PORT_FILE ((uint16_t) 43322)
+
+
 #define WALKIETALKIE_UINT_PORT ((uint16_t) 43321)
 #define WALKIETALKIE_UINT_PORT_sender ((uint16_t) 43324)
 #define WALKIETALKIE_VOICE_LISTENER ((uint16_t) 43322)
@@ -59,8 +63,13 @@
 
 
 #define JSON_KEY_IP_ADDRESS @"ip_address"
-#define JSON_KEY_DEVICE_NAME @"device_name"
 #define JSON_KEY_DEVICE_ID @"device_id"
+#define JSON_KEY_PROFILE_NAME @"profile_name"
+#define JSON_KEY_PROFILE_STATUS @"profile_status"
+#define JSON_KEY_PROFILE_IMAGE @"profile_image"
+
+
+#define JSON_KEY_DEVICE_NAME @"device_name"
 #define JSON_KEY_MESSAGE @"message"
 #define JSON_KEY_PORT @"port"
 #define JSON_KEY_TYPE @"type"
@@ -103,45 +112,26 @@
 
 
 
-#define CURRENTUSERKEY_FOR_USERDEFAULTS @"CurrentUserKey"
-#define SAVED_CHANNELS_KEY_FOR_USERDEFAULS @"myChannelsKey"
-#define FOREIGN_NEWLYCREATED_CHANNELS_KEY_FOR_USERDEFAULS @"myChannelsKey"
-#define DEVICE_UUID_KEY_FORUSERDEFAULTS @"UUIDkey"
-#define ACTIVEUSERLISTKEY @"activeUserListKey"
-#define IPADDRESS_FORMATKEY @"IPAddressFormatKey"
+#define USERDEFAULTS_KEY_NAME @"UserNameKey"
+#define USERDEFAULTS_KEY_IMAGE @"UserImageKey"
+#define USERDEFAULTS_KEY_STATUS @"UserStatusKey"
+
+#define USERDEFAULTS_KEY_UUID @"UUIDkey"
 
 
 #pragma mark - Notification Key
 
-#define MESSAGE_RECEIVED_NOTIFICATIONKEY @"dataReceievedNotificationKey"
-#define FOREIGN_CHANNEL_CREATED_NOTIFICATIONKEY @"foreignChannelCreatedNotification"
-#define JOINCHANNEL_REQUEST_NOTIFICATIONKEY @"JoinChannelRequestReceivedNotification"
-#define JOINCHANNEL_CONFIRM_NOTIFICATIONKEY @"JoinChannelConfirmationReceivedNotification"
-#define CHATMESSAGE_RECEIVED_NOTIFICATIONKEY @"ChatMessageReceivedNotification"
-#define CHANNEL_LEFT_NOTIFICATIONKEY @"leaveChannelMessageReceivedNotification"
-#define CHANNEL_DUPLICATE_NOTIFICATIONKEY @"DuplicateChannelMessageReceivedNotification"
+#define NOTIFICATIONKEY_NEW_DEVICE_JOINED @"newDeviceCreatedNotification"
+#define NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED @"newDeviceConfirmedNotification"
+#define NOTIFICATIONKEY_DEVICE_LEFT_SYSTEM @"deviceLeftSystemNotification"
 
-#define NEW_DEVICE_CONNECTED_NOTIFICATIONKEY @"newdeviceConnectedNotification"
-#define NEW_DEVICE_CONFIRMED_NOTIFICATIONKEY @"newdeviceConfirmedNotification"
-#define VOICE_MESSAGE_RECEIEVED_NOTIFICATIONKEY @"voiceMessageReceivedNotification"
-#define TCP_VOICE_MESSAGE_RECEIEVED_NOTIFICATIONKEY @"TCPvoiceMessageReceivedNotification"
-#define UDP_VOICE_MESSAGE_REPEAR_REQUEST_NOTIFICATIONKEY @"UDPvoiceMessageRepeatRequestNotification"
-#define VOICE_STREAM_RECEIEVED_NOTIFICATIONKEY @"voiceStreamReceivedNotification"
-
-#define FILE_RECEIEVED_NOTIFICATIONKEY @"fileReceivedNotification"
-#define FILE_REPEAT_REQUEST_NOTIFICATIONKEY @"fileRepeatRequestNotification"
+#define NOTIFICATIONKEY_NEW_DEVICE_JOINED_APPDELEGATE @"newDeviceCreatedNotificationAppDelegate"
+#define NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED_APPDELEGATE @"newDeviceConfirmedNotificationAppDelegate"
 
 
-#define USER_LEFT_SYSTEM_NOTIFICATIONKEY @"userLeftSystemNotification"
+#define NOTIFICATIONKEY_FILE_RECEIEVED @"fileReceivedNotification"
+#define NOTIFICATIONKEY_FILE_REPEAT_REQUEST @"fileRepeatRequestNotification"
 
-
-
-
-#define ONE_TO_ONE_CHAT_REQUEST_NOTIFICATIONKEY @"OneToOneChatRequestNotification"
-#define ONE_TO_ONE_CHAT_ACCEPT_NOTIFICATIONKEY @"OneToOneChatAcceptNotification"
-#define ONE_TO_ONE_CHAT_DECLINE_NOTIFICATIONKEY @"OneToOneChatDeclineNotification"
-
-#define ONE_TO_ONE_CHAT_ACCEPT_FROM_STARTPAGE_NOTIFICATIONKEY @"acceptMessageFromStartPageNotification"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 

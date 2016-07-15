@@ -19,6 +19,7 @@
 
 -(void)createSocketWithPort:(uint16_t) port;
 -(void)sendMessage:(NSString *)message toIPAddress:(NSString *)IPAddress;
+-(void)sendFileMessage:(NSString *)message toIPAddress:(NSString *)IPAddress;
 
 
 -(void)enableBroadCast;

@@ -21,7 +21,7 @@
 - (User *)getUserOfIndex:(NSUInteger)index;
 
 -(void)addUser:(User *)user;
--(void)addUserWithIP:(NSString *)ip deviceID:(NSString* )deviceID name:(NSString*)name andActive:(BOOL)active;
+//-(void)addUserWithIP:(NSString *)ip deviceID:(NSString* )deviceID name:(NSString*)name andActive:(BOOL)active;
 -(void)removeUserofIP:(NSString *)ip andDeviceID:(NSString *)deviceID;
 
 

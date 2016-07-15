@@ -74,17 +74,17 @@
     }
 }
 
--(void)addUserWithIP:(NSString *)ip deviceID:(NSString* )deviceID name:(NSString*)name andActive:(BOOL)active{
-    
-    
-    if(![self isUserAlreadyInArrayOfIP:ip andDeviceID:deviceID]){
-        
-        User * user = [[User alloc] initWithIP:(NSString *)ip deviceID:(NSString* )deviceID name:(NSString*)name andActive:(BOOL)active];
-        
-        [self.usersArray addObject:user];
-        //[self.userIPsArray addObject:user.deviceIP];
-    }
-}
+//-(void)addUserWithIP:(NSString *)ip deviceID:(NSString* )deviceID name:(NSString*)name andActive:(BOOL)active{
+//    
+//    
+//    if(![self isUserAlreadyInArrayOfIP:ip andDeviceID:deviceID]){
+//        
+//        User * user = [[User alloc] initWithIP:(NSString *)ip deviceID:(NSString* )deviceID name:(NSString*)name andActive:(BOOL)active];
+//        
+//        [self.usersArray addObject:user];
+//        //[self.userIPsArray addObject:user.deviceIP];
+//    }
+//}
 
 
 -(void)removeUserofIP:(NSString *)ip andDeviceID:(NSString *)deviceID {
