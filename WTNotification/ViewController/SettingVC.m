@@ -7,6 +7,7 @@
 //
 
 #import "SettingVC.h"
+#import <SVProgressHUD/SVProgressHUD.h>
 
 typedef void(^myCompletion)(BOOL);
 
@@ -116,55 +117,84 @@ typedef void(^myCompletion)(BOOL);
 
 - (IBAction)postBtnPress:(id)sender {
     
-    
     if(uploadedResizedImage != nil || self.statusTV.text.length || self.nameTF.text.length){
         
-        //Name
-        if(self.nameTF.text.length){
-            
-            NSString * name = self.nameTF.text;
-            [UserHandler sharedInstance].mySelf.profileName = name;
-            
-            [[NSUserDefaults standardUserDefaults] setObject:name forKey:USERDEFAULTS_KEY_NAME];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+        [SVProgressHUD showWithStatus:@"Please wait ..."];
         
-        //status
-        if(self.statusTV.text.length){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            [UserHandler sharedInstance].mySelf.profileStatus = self.statusTV.text;
-            
-            [[NSUserDefaults standardUserDefaults] setObject:self.statusTV.text forKey:USERDEFAULTS_KEY_IMAGE];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        
-        //save the image
-        if(!CGSizeEqualToSize(uploadedResizedImage.size, CGSizeZero)){
-
-            NSData *imageData = UIImagePNGRepresentation(uploadedResizedImage);
-            NSString *fileName = [NSString stringWithFormat:@"%@.png",[UserHandler sharedInstance].mySelf.deviceID];
-            NSString *imagePath = [[FileHandler sharedHandler] writeData:imageData toFileName:fileName ofType:kFileTypePhoto];
-            
-            [UserHandler sharedInstance].mySelf.profileImageName = fileName;
-            
-            [[NSUserDefaults standardUserDefaults] setObject:fileName forKey:USERDEFAULTS_KEY_IMAGE];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-
-        
-        [self sendPostMessageWithCompletionBlock:^(BOOL finished) {
-            
-            if(finished){
+            // long-running code
+            //Name
+            if(self.nameTF.text.length){
                 
-                NSLog(@"Successfully finished.");
+                NSString * name = self.nameTF.text;
+                [UserHandler sharedInstance].mySelf.profileName = name;
+                
+                [[NSUserDefaults standardUserDefaults] setObject:name forKey:USERDEFAULTS_KEY_NAME];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
-        }];
+            
+            //status
+            if(self.statusTV.text.length){
+                
+                [UserHandler sharedInstance].mySelf.profileStatus = self.statusTV.text;
+                
+                [[NSUserDefaults standardUserDefaults] setObject:self.statusTV.text forKey:USERDEFAULTS_KEY_IMAGE];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            
+            //save the image
+            if(!CGSizeEqualToSize(uploadedResizedImage.size, CGSizeZero)){
+                
+                NSData *imageData = UIImagePNGRepresentation(uploadedResizedImage);
+                NSString *fileName = [NSString stringWithFormat:@"%@.png",[UserHandler sharedInstance].mySelf.deviceID];
+                NSString *imagePath = [[FileHandler sharedHandler] writeData:imageData toFileName:fileName ofType:kFileTypePhoto];
+                
+                [UserHandler sharedInstance].mySelf.profileImageName = fileName;
+                
+                [[NSUserDefaults standardUserDefaults] setObject:fileName forKey:USERDEFAULTS_KEY_IMAGE];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            
+            
+            [self sendPostMessageWithCompletionBlock:^(BOOL finished) {
+                
+                if(finished){
+                    
+                    NSLog(@"Successfully finished.");
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Successfully notification send."
+                                                                    message: @""
+                                                                   delegate: nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                    
+                    [alert show];
+                    
+                    
+                }
+            }];
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [SVProgressHUD dismiss];
+            });
+        });
+        
+        
         
     }else{
         
-        NSLog(@"all empty");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"All Empty. please update something."
+                                                        message: @""
+                                                       delegate: nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
     }
-    
+
 }
 
 

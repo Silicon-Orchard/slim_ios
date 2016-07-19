@@ -6,6 +6,7 @@
 target 'WTNotification' do
 
 pod 'CocoaAsyncSocket'
+pod 'SVProgressHUD'
 
 end
 

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '2C31A9919CE32FF1D6EFB778'
+               BlueprintIdentifier = 'ECD91A697246109D7B7E6D7C'
                BlueprintName = 'Pods-WTNotification'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-WTNotification.a'>

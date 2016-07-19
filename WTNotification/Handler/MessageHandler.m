@@ -91,8 +91,6 @@
     }
 
     
-    base64Image = @"";
-    
     NSDictionary * postDictionary = @{
                                       JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_REQUEST_INFO],
                                       JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
@@ -129,8 +127,7 @@
     }else{
         base64Image = @"";
     }
-    
-     base64Image = @"";
+
     
     NSDictionary * postDictionary = @{
                                       JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_RECEIVE_INFO],
