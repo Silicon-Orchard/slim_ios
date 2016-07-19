@@ -71,6 +71,16 @@
         
         [self.usersArray addObject:user];
         //[self.userIPsArray addObject:user.deviceIP];
+    }else{
+        
+        for (int i = 0; i< self.usersArray.count; i++) {
+            User *userObj = self.usersArray[i];
+
+            if([user.deviceIP isEqualToString:userObj.deviceIP] && [user.deviceID isEqualToString:userObj.deviceID] ){
+                
+                [self.usersArray replaceObjectAtIndex:i withObject:user];
+            }
+        }
     }
 }
 

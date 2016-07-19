@@ -19,8 +19,8 @@
     // Override point for customization after application launch.
     
     //Create Socket
-    [[ConnectionHandler sharedHandler] createSocketWithPort:WTNOTIFICATION_PORT_NORMAL];
-    [[ConnectionHandler sharedHandler] createSocketWithPort:WTNOTIFICATION_PORT_FILE];
+    [[ConnectionHandler sharedHandler] createSocketWithPort:WTNOTIFICATION_PORT_ACTIVE];
+    //[[ConnectionHandler sharedHandler] createSocketWithPort:WTNOTIFICATION_PORT_FILE];
     
     
     NSString *ipAddress = [[MessageHandler sharedHandler] getIPAddress];
@@ -51,7 +51,7 @@
     if(!profileStatus.length){
         
         profileStatus = @"";
-        [[NSUserDefaults standardUserDefaults] setObject:profileImage forKey:USERDEFAULTS_KEY_STATUS];
+        [[NSUserDefaults standardUserDefaults] setObject:profileStatus forKey:USERDEFAULTS_KEY_STATUS];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -77,6 +77,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(newDeviceConfirmed:)
                                                  name:NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateProfileInfo:)
+                                                 name:NOTIFICATIONKEY_UPDATE_PROFILE_INFO
                                                object:nil];
     
     
@@ -115,27 +120,46 @@
     
     NSDictionary* userInfo = notification.userInfo;
     NSData* receivedData = (NSData*)userInfo[@"receievedData"];
-    NSDictionary *jsonDict = [NSJSONSerialization  JSONObjectWithData:receivedData options:0 error:nil];
+    NSMutableDictionary *jsonDict = [[NSJSONSerialization  JSONObjectWithData:receivedData options:0 error:nil] mutableCopy];
     
-    //Save The User
+    //Save The Image & User
+    //Image
+    NSString *base64Image = [jsonDict objectForKey:JSON_KEY_PROFILE_IMAGE];
+    NSString *deviceID = [jsonDict objectForKey:JSON_KEY_DEVICE_ID];
+    NSString *imageName = [[FileHandler sharedHandler] saveBase64Image:base64Image ofDeviceID:deviceID];
+
+    [jsonDict setObject:imageName forKey:JSON_KEY_PROFILE_IMAGE];
+
+    //User
     User *newUser = [[User alloc] initWithDictionary:jsonDict andActive:YES];
     [[UserHandler sharedInstance] addUser:newUser];
     
     
+    
+    //send confirmartion
     NSString *acknowledgeDeviceInNetWorkMessage = [[MessageHandler sharedHandler] acknowledgeDeviceInNetwork];
     [[ConnectionHandler sharedHandler] sendMessage:acknowledgeDeviceInNetWorkMessage toIPAddress:newUser.deviceIP];
     
+    
+    
     //send notification to main page
-
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_NEW_DEVICE_JOINED_APPDELEGATE object:nil userInfo:userInfo];
-
 }
 
 -(void) newDeviceConfirmed:(NSNotification*)notification{
     
     NSDictionary* userInfo = notification.userInfo;
     NSData* receivedData = (NSData*)userInfo[@"receievedData"];
-    NSDictionary *jsonDict = [NSJSONSerialization  JSONObjectWithData:receivedData options:0 error:nil];
+    NSMutableDictionary *jsonDict = [[NSJSONSerialization  JSONObjectWithData:receivedData options:0 error:nil] mutableCopy];
+
+    
+    //Save The Image & User
+    //Image
+    NSString *base64Image = [jsonDict objectForKey:JSON_KEY_PROFILE_IMAGE];
+    NSString *deviceID = [jsonDict objectForKey:JSON_KEY_DEVICE_ID];
+    NSString *imageName = [[FileHandler sharedHandler] saveBase64Image:base64Image ofDeviceID:deviceID];
+    
+    [jsonDict setObject:imageName forKey:JSON_KEY_PROFILE_IMAGE];
     
     //Save The User
     User *confirmerUser = [[User alloc] initWithDictionary:jsonDict andActive:YES];
@@ -145,9 +169,35 @@
      [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED_APPDELEGATE object:nil userInfo:userInfo];
 }
 
+-(void) updateProfileInfo:(NSNotification*)notification{
+    
+    NSDictionary* userInfo = notification.userInfo;
+    NSData* receivedData = (NSData*)userInfo[@"receievedData"];
+    NSMutableDictionary *jsonDict = [[NSJSONSerialization  JSONObjectWithData:receivedData options:0 error:nil] mutableCopy];
+
+    
+    //Save The Image & User
+    //Image
+    NSString *base64Image = [jsonDict objectForKey:JSON_KEY_PROFILE_IMAGE];
+    NSString *deviceID = [jsonDict objectForKey:JSON_KEY_DEVICE_ID];
+    NSString *imageName = [[FileHandler sharedHandler] saveBase64Image:base64Image ofDeviceID:deviceID];
+    
+    [jsonDict setObject:imageName forKey:JSON_KEY_PROFILE_IMAGE];
+    
+    //Save The User
+    User *updaterUser = [[User alloc] initWithDictionary:jsonDict andActive:YES];
+    [[UserHandler sharedInstance] addUser:updaterUser];
+
+    //send notification to main page
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_UPDATE_PROFILE_INFO_APPDELEGATE object:nil userInfo:userInfo];
+}
+
+
+
+
 #pragma mark - Private Methods
 
--(void)notifySelfPresenceToNetwork{
+-(void)notifySelfPresenceToNetwork {
     
     NSString *requestInfoMessage = [[MessageHandler sharedHandler] requestInfoAtStartMessage];
     

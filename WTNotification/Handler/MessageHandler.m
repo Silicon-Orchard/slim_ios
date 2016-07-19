@@ -71,12 +71,35 @@
 
 -(NSString *)requestInfoAtStartMessage{
     
+    NSString *base64Image;
+    NSString *imageName = [UserHandler sharedInstance].mySelf.profileImageName;
+    
+    if(imageName.length){
+        
+        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:imageName OfType:kFileTypePhoto];
+        UIImage *imageToSend = [UIImage imageWithContentsOfFile:imagePath];
+        
+        if(imageToSend != nil){
+            
+            base64Image =  [[FileHandler sharedHandler] encodeToBase64String:imageToSend];
+        }else{
+            base64Image = @"";
+        }
+        
+    }else{
+       base64Image = @"";
+    }
+
+    
+    base64Image = @"";
+    
     NSDictionary * postDictionary = @{
                                       JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_REQUEST_INFO],
                                       JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
                                       JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
                                       JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
-                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus
+                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus,
+                                      JSON_KEY_PROFILE_IMAGE: base64Image
                                       };
     
     NSError * error = nil;
@@ -87,13 +110,35 @@
 
 -(NSString *)acknowledgeDeviceInNetwork{
     
+    NSString *base64Image;
+    NSString *imageName = [UserHandler sharedInstance].mySelf.profileImageName;
+    
+
+    if(imageName.length){
+        
+        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:imageName OfType:kFileTypePhoto];
+        UIImage *imageToSend = [UIImage imageWithContentsOfFile:imagePath];
+        
+        if(imageToSend != nil){
+            
+            base64Image =  [[FileHandler sharedHandler] encodeToBase64String:imageToSend];
+        }else{
+            base64Image = @"";
+        }
+        
+    }else{
+        base64Image = @"";
+    }
+    
+     base64Image = @"";
     
     NSDictionary * postDictionary = @{
                                       JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_RECEIVE_INFO],
                                       JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
                                       JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
                                       JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
-                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus
+                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus,
+                                      JSON_KEY_PROFILE_IMAGE: base64Image
                                       };
     
     NSError * error = nil;
@@ -101,6 +146,46 @@
     NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     return resultAsString;
 }
+
+-(NSString *)postMessage{
+    
+    NSString *base64Image;
+    NSString *imageName = [UserHandler sharedInstance].mySelf.profileImageName;
+    
+    if(imageName.length){
+        
+        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:imageName OfType:kFileTypePhoto];
+        UIImage *imageToSend = [UIImage imageWithContentsOfFile:imagePath];
+        
+        if(imageToSend != nil){
+            
+            base64Image =  [[FileHandler sharedHandler] encodeToBase64String:imageToSend];
+        }else{
+            base64Image = @"";
+        }
+        
+    }else{
+        base64Image = @"";
+    }
+
+    //base64Image = @"";
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_POST_INFO],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus,
+                                      JSON_KEY_PROFILE_IMAGE: base64Image
+                                      };
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
+}
+
+
 
 -(NSString *)leftApplicationMessage {
     

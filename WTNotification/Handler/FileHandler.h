@@ -27,5 +27,11 @@
 - (NSArray *)encodedStringChunksWithFile:(NSString *)fileName OfType:(int)type;
 
 
+#pragma mark - Image Helpers
+
+-(NSString *)saveBase64Image:(NSString *)base64Image ofDeviceID:(NSString *)deviceID;
+- (UIImage *)resizeImage:(UIImage *)image;
+- (NSString *)encodeToBase64String:(UIImage *)image;
+- (UIImage *)decodeBase64ToImage:(NSString *)strEncodeData;
 
 @end

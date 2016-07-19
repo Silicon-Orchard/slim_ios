@@ -39,6 +39,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDeviceJoined:) name:NOTIFICATIONKEY_NEW_DEVICE_JOINED_APPDELEGATE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newDeviceConfirmed:) name:NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED_APPDELEGATE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProfileInfoNotification:) name:NOTIFICATIONKEY_UPDATE_PROFILE_INFO_APPDELEGATE object:nil];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -98,6 +100,15 @@
 
 }
 
+-(void) updateProfileInfoNotification:(NSNotification*)notification{
+    
+    //Update the Table
+    self.userListArrays = [[UserHandler sharedInstance] getUsers];
+    [self.tableView reloadData];
+}
+
+
+
 - (void)addNewDeviceToNetWorkDeviceList:(NSNotification *) sender {
     
     self.userListArrays = [[UserHandler sharedInstance] getUsers];
@@ -131,7 +142,23 @@ static NSString * CellID = @"StatusCellID";
     StatusTVC *cell =  (StatusTVC *)[tableView dequeueReusableCellWithIdentifier:CellID forIndexPath:indexPath];
     cell.nameLabel.text = user.profileName;
     cell.statusLabel.text = user.profileStatus;
-    cell.imageView.image = [UIImage imageNamed:@"no-profile.png"];
+    
+    if(user.profileImageName.length){
+        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:user.profileImageName OfType:kFileTypePhoto];
+        
+        UIImage *cellImage = [UIImage imageWithContentsOfFile:imagePath];
+        
+        if(cellImage != nil){
+            cell.profileImageView.image = cellImage;
+        }else{
+            cell.profileImageView.image = [UIImage imageNamed:@"no-profile.png"];
+        }
+        
+    }else{
+        cell.profileImageView.image = [UIImage imageNamed:@"no-profile.png"];
+    }
+    
+    
     cell.backgroundColor = cell.contentView.backgroundColor;
     
     return cell;

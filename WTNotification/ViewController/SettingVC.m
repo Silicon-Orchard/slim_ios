@@ -10,7 +10,10 @@
 
 typedef void(^myCompletion)(BOOL);
 
-@interface SettingVC ()
+@interface SettingVC (){
+    
+    UIImage *uploadedResizedImage;
+}
 
 @end
 
@@ -28,8 +31,23 @@ typedef void(^myCompletion)(BOOL);
     self.nameTF.text = mySelf.profileName;
     self.statusTV.text = mySelf.profileStatus;
     
-    NSString *imageName = mySelf.profileImageName.length ? mySelf.profileImageName : @"no-profile.png";
-    self.imageView.image = [UIImage imageNamed:imageName];
+    
+    if(mySelf.profileImageName.length){
+        
+        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:mySelf.profileImageName OfType:kFileTypePhoto];
+        UIImage *proImage = [UIImage imageWithContentsOfFile:imagePath];
+        
+        if(proImage != nil){
+            self.imageView.image = proImage;
+        }else{
+            self.imageView.image = [UIImage imageNamed: @"no-profile.png"];
+            
+        }
+        
+    }else{
+        self.imageView.image = [UIImage imageNamed: @"no-profile.png"];
+    }
+
     
     
     [self configUI];
@@ -98,7 +116,54 @@ typedef void(^myCompletion)(BOOL);
 
 - (IBAction)postBtnPress:(id)sender {
     
+    
+    if(uploadedResizedImage != nil || self.statusTV.text.length || self.nameTF.text.length){
+        
+        //Name
+        if(self.nameTF.text.length){
+            
+            NSString * name = self.nameTF.text;
+            [UserHandler sharedInstance].mySelf.profileName = name;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:name forKey:USERDEFAULTS_KEY_NAME];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        //status
+        if(self.statusTV.text.length){
+            
+            [UserHandler sharedInstance].mySelf.profileStatus = self.statusTV.text;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:self.statusTV.text forKey:USERDEFAULTS_KEY_IMAGE];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        //save the image
+        if(!CGSizeEqualToSize(uploadedResizedImage.size, CGSizeZero)){
 
+            NSData *imageData = UIImagePNGRepresentation(uploadedResizedImage);
+            NSString *fileName = [NSString stringWithFormat:@"%@.png",[UserHandler sharedInstance].mySelf.deviceID];
+            NSString *imagePath = [[FileHandler sharedHandler] writeData:imageData toFileName:fileName ofType:kFileTypePhoto];
+            
+            [UserHandler sharedInstance].mySelf.profileImageName = fileName;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:fileName forKey:USERDEFAULTS_KEY_IMAGE];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+
+        
+        [self sendPostMessageWithCompletionBlock:^(BOOL finished) {
+            
+            if(finished){
+                
+                NSLog(@"Successfully finished.");
+            }
+        }];
+        
+    }else{
+        
+        NSLog(@"all empty");
+    }
     
 }
 
@@ -121,24 +186,19 @@ typedef void(^myCompletion)(BOOL);
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    UIImage *uploadedImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
-    //Save the image
     
-    NSData *imageData = UIImagePNGRepresentation(image);
-    NSString *fileName = [FileHandler getFileNameOfType:kFileTypePhoto];
+    NSData *imageData = UIImagePNGRepresentation(uploadedImage);
     
+    //resize the image
+    uploadedResizedImage = [[FileHandler sharedHandler] resizeImage:uploadedImage];
     
-    [[FileHandler sharedHandler] writeData:imageData toFileName:fileName ofType:kFileTypePhoto];
+    imageData = UIImagePNGRepresentation(uploadedResizedImage);
     
-    [self sendFile:fileName ofType:kFileTypePhoto andCompletionBlock:^(BOOL finished) {
-        
-        if(finished){
-            
-            
-        }
-    }];
+    self.imageView.image = uploadedResizedImage;
+    
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -147,11 +207,15 @@ typedef void(^myCompletion)(BOOL);
 }
 
 
-- (void)sendFile:(NSString *) fileName ofType:(int) fileType andCompletionBlock:(myCompletion) completionBlock {
-    
-    NSArray *chunkStringArray = [[MessageHandler sharedHandler] jsonStringArrayWithFile:fileName OfType:fileType];
+- (void)sendPostMessageWithCompletionBlock:(myCompletion) completionBlock {
     
     
+    NSString *postMessage = [[MessageHandler sharedHandler] postMessage];
+    
+    NSUInteger bytes = [postMessage lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%lu bytes", (unsigned long)bytes);
+    
+    [[ConnectionHandler sharedHandler] enableBroadCast];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         
@@ -159,33 +223,17 @@ typedef void(^myCompletion)(BOOL);
         
         for (NSString *ipAddress in channelMembers) {
             
-            
-            for (int j = 0; j<chunkStringArray.count; j++) {
-                NSLog(@"message to send %@", [chunkStringArray objectAtIndex:j]);
-                if (j%5 == 0) {
-                    [NSThread sleepForTimeInterval:0.09];
-                }
-                
-                [[ConnectionHandler sharedHandler] sendFileMessage:[chunkStringArray objectAtIndex:j] toIPAddress:ipAddress];
-            }
+            [[ConnectionHandler sharedHandler] sendMessage:postMessage toIPAddress:ipAddress];
+    
         }
-
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            //            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Done"
-            //                                                            message: [NSString stringWithFormat:@"Sent packet count %lu", (unsigned long)chunkStringArray.count] //@"Voice Message Sent to Channel Members!"
-            //                                                           delegate: nil
-            //                                                  cancelButtonTitle:@"OK"
-            //                                                  otherButtonTitles:nil];
-            //
-            //
-            //            [alert show];
             
             completionBlock(YES);
         });
     });
     
 }
+
 
 @end

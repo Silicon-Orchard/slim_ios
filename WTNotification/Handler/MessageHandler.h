@@ -33,6 +33,8 @@
 
 -(NSString *)requestInfoAtStartMessage;
 -(NSString *)acknowledgeDeviceInNetwork;
+-(NSString *)postMessage;
+
 -(NSString *)leftApplicationMessage;
 
 -(NSArray *)jsonStringArrayWithFile:(NSString *)fileName OfType:(int)type;

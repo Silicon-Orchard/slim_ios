@@ -32,8 +32,9 @@
     }
     NSError *error = nil;
     self.asyncUdpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    //[self.asyncUdpSocket setMaxReceiveIPv4BufferSize:kDatagramSize];
 
-    if (![self.asyncUdpSocket bindToPort:WTNOTIFICATION_PORT_NORMAL error:&error]) {
+    if (![self.asyncUdpSocket bindToPort:WTNOTIFICATION_PORT_ACTIVE error:&error]) {
         NSLog(@"bind failed with error %@", [error localizedDescription]);
         //         [self createSocketWithPort:WALKIETALKIE_UINT_PORT];
     };
@@ -48,9 +49,14 @@
 
 -(void)sendMessage:(NSString *)message toIPAddress:(NSString *)IPAddress {
 
+    NSUInteger bytes = [message lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%lu bytes", (unsigned long)bytes);
+    
+
+    
     [self.asyncUdpSocket sendData:[message dataUsingEncoding:NSUTF8StringEncoding]
                            toHost:IPAddress
-                             port:WTNOTIFICATION_PORT_NORMAL
+                             port:WTNOTIFICATION_PORT_ACTIVE
                       withTimeout:3
                               tag:0];
 }
@@ -68,6 +74,7 @@
 -(void)enableBroadCast{
     NSError *error =nil;
     [self.asyncUdpSocket enableBroadcast:YES error:&error];
+    //[self.asyncUdpSocket ma]
 }
 
 -(void)disableBroadCast{
@@ -129,6 +136,10 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED object:nil userInfo:userInfo];
             break;
             
+        case TYPE_POST_INFO:
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_UPDATE_PROFILE_INFO object:nil userInfo:userInfo];
+            break;
+            
         default:
             break;
     }
@@ -141,7 +152,7 @@
     
     NSLog(@"SocketClosed with error %@", [error localizedDescription]);
     self.asyncUdpSocket = nil;
-    [self createSocketWithPort:WALKIETALKIE_UINT_PORT];
+    [self createSocketWithPort:WTNOTIFICATION_PORT_ACTIVE];
 }
 
 @end

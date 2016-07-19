@@ -225,4 +225,80 @@
 }
 
 
+#pragma mark - Image Helper
+
+-(NSString *)saveBase64Image:(NSString *)base64Image ofDeviceID:(NSString *)deviceID{
+    
+    NSString *imageName;
+    if(base64Image.length){
+        
+        UIImage *receivedImage = [[FileHandler sharedHandler] decodeBase64ToImage:base64Image];
+        imageName = [NSString stringWithFormat:@"%@.png", deviceID];
+        
+        NSData *imageData = UIImagePNGRepresentation(receivedImage);
+        NSString *imagePath = [[FileHandler sharedHandler] writeData:imageData toFileName:imageName ofType:kFileTypePhoto];
+        
+    }else{
+        
+        imageName = @"";
+    }
+    
+    return imageName;
+}
+
+-(UIImage *)resizeImage:(UIImage *)image {
+    
+    float actualHeight = image.size.height;
+    float actualWidth = image.size.width;
+    float maxHeight = 40.0;
+    float maxWidth = 40.0;
+    float imgRatio = actualWidth/actualHeight;
+    float maxRatio = maxWidth/maxHeight;
+    float compressionQuality = 0.4;//50 percent compression
+    
+    if (actualHeight > maxHeight || actualWidth > maxWidth)
+    {
+        if(imgRatio < maxRatio)
+        {
+            //adjust width according to maxHeight
+            imgRatio = maxHeight / actualHeight;
+            actualWidth = imgRatio * actualWidth;
+            actualHeight = maxHeight;
+        }
+        else if(imgRatio > maxRatio)
+        {
+            //adjust height according to maxWidth
+            imgRatio = maxWidth / actualWidth;
+            actualHeight = imgRatio * actualHeight;
+            actualWidth = maxWidth;
+        }
+        else
+        {
+            actualHeight = maxHeight;
+            actualWidth = maxWidth;
+        }
+    }
+    
+    CGRect rect = CGRectMake(0.0, 0.0, actualWidth, actualHeight);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(img, compressionQuality);
+    UIGraphicsEndImageContext();
+    
+    return [UIImage imageWithData:imageData];
+    
+}
+
+- (NSString *)encodeToBase64String:(UIImage *)image {
+    
+    return [UIImagePNGRepresentation(image) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+}
+
+- (UIImage *)decodeBase64ToImage:(NSString *)strEncodeData {
+    NSData *data = [[NSData alloc]initWithBase64EncodedString:strEncodeData options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return [UIImage imageWithData:data];
+}
+
+
 @end

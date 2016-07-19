@@ -11,6 +11,9 @@
 
 #define kBufferByteSize 8096
 
+#define kDatagramSize 7000
+
+#define WTNOTIFICATION_PORT_ACTIVE ((uint16_t) 27823)
 
 #define WTNOTIFICATION_PORT_NORMAL ((uint16_t) 43321)
 #define WTNOTIFICATION_PORT_FILE ((uint16_t) 43322)
@@ -26,16 +29,27 @@
 #define CHUNKSIZE ((int) 3000)
 
 
-#define TYPE_MESSAGE ((int) 1)
-#define TYPE_ADD_CLIENT ((int) 2)
+
+
 #define TYPE_REQUEST_INFO ((int) 3)
 #define TYPE_RECEIVE_INFO ((int) 4)
+#define TYPE_POST_INFO ((int) 14)
+
+
+
+#define TYPE_MESSAGE ((int) 1)
+#define TYPE_ADD_CLIENT ((int) 2)
+
 #define TYPE_CREATE_CHANNEL ((int) 5)
 #define TYPE_JOIN_CHANNEL ((int) 6)
 #define TYPE_JOIN_CHANNEL_CONFIRM ((int) 7)
 #define TYPE_CHANNEL_DUPLICATE ((int) 8)
 #define TYPE_LEFT_CHANNEL ((int) 9)
 #define TYPE_DESTROY_CHANNEL ((int) 99)
+
+
+
+
 
 #define TYPE_LEFT_APPLICATION ((int) 10)
 
@@ -64,9 +78,9 @@
 
 #define JSON_KEY_IP_ADDRESS @"ip_address"
 #define JSON_KEY_DEVICE_ID @"device_id"
-#define JSON_KEY_PROFILE_NAME @"profile_name"
-#define JSON_KEY_PROFILE_STATUS @"profile_status"
-#define JSON_KEY_PROFILE_IMAGE @"profile_image"
+#define JSON_KEY_PROFILE_NAME @"device_name"
+#define JSON_KEY_PROFILE_STATUS @"status"
+#define JSON_KEY_PROFILE_IMAGE @"base64image"
 
 
 #define JSON_KEY_DEVICE_NAME @"device_name"
@@ -123,14 +137,16 @@
 
 #define NOTIFICATIONKEY_NEW_DEVICE_JOINED @"newDeviceCreatedNotification"
 #define NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED @"newDeviceConfirmedNotification"
+#define NOTIFICATIONKEY_UPDATE_PROFILE_INFO @"updateProfileInfoNotification"
+
+
+
 #define NOTIFICATIONKEY_DEVICE_LEFT_SYSTEM @"deviceLeftSystemNotification"
 
 #define NOTIFICATIONKEY_NEW_DEVICE_JOINED_APPDELEGATE @"newDeviceCreatedNotificationAppDelegate"
 #define NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED_APPDELEGATE @"newDeviceConfirmedNotificationAppDelegate"
+#define NOTIFICATIONKEY_UPDATE_PROFILE_INFO_APPDELEGATE @"updateProfileInfoNotificationAppDelegate"
 
-
-#define NOTIFICATIONKEY_FILE_RECEIEVED @"fileReceivedNotification"
-#define NOTIFICATIONKEY_FILE_REPEAT_REQUEST @"fileRepeatRequestNotification"
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]

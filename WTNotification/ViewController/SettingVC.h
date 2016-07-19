@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingVC : UIViewController <UITextFieldDelegate, UIImagePickerControllerDelegate>
+@interface SettingVC : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 
 
