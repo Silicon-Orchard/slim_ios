@@ -139,7 +139,7 @@ typedef void(^myCompletion)(BOOL);
                 
                 [UserHandler sharedInstance].mySelf.profileStatus = self.statusTV.text;
                 
-                [[NSUserDefaults standardUserDefaults] setObject:self.statusTV.text forKey:USERDEFAULTS_KEY_IMAGE];
+                [[NSUserDefaults standardUserDefaults] setObject:self.statusTV.text forKey:USERDEFAULTS_KEY_STATUS];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
             

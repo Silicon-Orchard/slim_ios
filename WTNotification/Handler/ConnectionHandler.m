@@ -25,24 +25,32 @@
 
 
 -(void)createSocketWithPort:(uint16_t) port{
+    
     if (self.asyncUdpSocket) {
         NSLog(@"SocketNotCreated");
         //        self.currentListenerSocket
         //        return;
     }
+    
     NSError *error = nil;
     self.asyncUdpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    //[self.asyncUdpSocket setMaxReceiveIPv4BufferSize:kDatagramSize];
+    [self.asyncUdpSocket setMaxReceiveIPv4BufferSize:kReceivedBufferByteSize];
 
     if (![self.asyncUdpSocket bindToPort:WTNOTIFICATION_PORT_ACTIVE error:&error]) {
+        
         NSLog(@"bind failed with error %@", [error localizedDescription]);
-        //         [self createSocketWithPort:WALKIETALKIE_UINT_PORT];
     };
-    //    [self.currentListenerSocket enableBroadcast:YES error:&error];
+
     if (![self.asyncUdpSocket beginReceiving:&error]) {
+        
         NSLog(@"receive failed with error %@", [error localizedDescription]);
-        //         [self createSocketWithPort:WALKIETALKIE_UINT_PORT];
     };
+    
+    if([self.asyncUdpSocket isClosed]){
+        
+        NSLog(@"asyncUdpSocket isClosed");
+        
+    }
 
 }
 

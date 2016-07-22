@@ -69,6 +69,28 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED_APPDELEGATE object:nil];
 }
 
+
+#pragma mark - IBAction
+
+- (IBAction)segmentSwitch:(UISegmentedControl *)sender {
+    
+    
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    
+//    if (selectedSegment == 0) {
+//        //toggle the correct view to be visible
+//        [firstView setHidden:NO];
+//        [secondView setHidden:YES];
+//    }
+//    else{
+//        //toggle the correct view to be visible
+//        [firstView setHidden:YES];
+//        [secondView setHidden:NO];
+//    }
+    
+}
+
 #pragma mark - NSNotification
 
 -(void) newDeviceJoined:(NSNotification*)notification{
@@ -171,6 +193,8 @@ static NSString * CellID = @"StatusCellID";
     
     return 60.0f;
 }
+
+
 
 
 @end

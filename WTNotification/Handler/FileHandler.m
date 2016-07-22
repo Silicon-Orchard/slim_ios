@@ -250,11 +250,11 @@
     
     float actualHeight = image.size.height;
     float actualWidth = image.size.width;
-    float maxHeight = 40.0;
-    float maxWidth = 40.0;
+    float maxHeight = 50.0;
+    float maxWidth = 50.0;
     float imgRatio = actualWidth/actualHeight;
     float maxRatio = maxWidth/maxHeight;
-    float compressionQuality = 0.4;//50 percent compression
+    float compressionQuality = 0.5;//50 percent compression
     
     if (actualHeight > maxHeight || actualWidth > maxWidth)
     {

@@ -10,8 +10,11 @@
 #define Constants_h
 
 #define kBufferByteSize 8096
+#define kReceivedBufferByteSize 65508
 
 #define kDatagramSize 7000
+
+
 
 #define WTNOTIFICATION_PORT_ACTIVE ((uint16_t) 27823)
 
