@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +17,27 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-splase-screen-.png" translatesAutoresizingMaskIntoConstraints="NO" id="mss-Tf-0I3">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ovk-d9-0p7">
+                                <rect key="frame" x="200" y="200" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Ovk-d9-0p7" secondAttribute="height" multiplier="1:1" id="v3M-MD-ZNO"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mss-Tf-0I3" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="GE1-D3-2od"/>
+                            <constraint firstItem="Ovk-d9-0p7" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1:3" id="QAx-tv-ifb"/>
+                            <constraint firstItem="Ovk-d9-0p7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="c8f-BB-wbF"/>
+                            <constraint firstAttribute="trailing" secondItem="mss-Tf-0I3" secondAttribute="trailing" id="cyA-2j-dtv"/>
+                            <constraint firstItem="Ovk-d9-0p7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ge4-WU-f1W"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="mss-Tf-0I3" secondAttribute="bottom" id="oGc-za-Gaq"/>
+                            <constraint firstItem="mss-Tf-0I3" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="rtq-MN-k4u"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +45,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bg-splase-screen-.png" width="750" height="1334"/>
+        <image name="logo.png" width="231" height="229"/>
+    </resources>
 </document>

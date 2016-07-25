@@ -31,10 +31,13 @@
     [self addChildViewController:vc];
     
     [self transitionFromViewController:self.currentViewController toViewController:vc duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        
         [self.currentViewController.view removeFromSuperview];
         vc.view.frame = self.contentView.bounds;
         [self.contentView addSubview:vc.view];
+        
     } completion:^(BOOL finished) {
+        
         [vc didMoveToParentViewController:self];
         [self.currentViewController removeFromParentViewController];
         self.currentViewController = vc;

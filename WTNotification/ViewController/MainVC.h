@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailVC.h"
 
-@interface MainVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MainVC : UIViewController <UITableViewDelegate, UITableViewDataSource, DetailVCBackBtnPressDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

@@ -21,6 +21,9 @@
 		B20CA2AF1D37B02200CE3707 /* MessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B20CA2AE1D37B02200CE3707 /* MessageHandler.m */; };
 		B23441221D389D6A001DF5D7 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23441211D389D6A001DF5D7 /* StatusTVC.m */; };
 		B234412B1D38CEBB001DF5D7 /* FileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B234412A1D38CEBB001DF5D7 /* FileHandler.m */; };
+		B23A8F591D45EF7A00872C44 /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A8F581D45EF7A00872C44 /* DetailVC.m */; };
+		B23A8F5C1D46149900872C44 /* bg-splase-screen-.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5A1D46149900872C44 /* bg-splase-screen-.png */; };
+		B23A8F5D1D46149900872C44 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5B1D46149900872C44 /* logo.png */; };
 		B2DCB5021D4212C4001B153B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB5011D4212C4001B153B /* ProfileVC.m */; };
 		B2DCB5051D423B80001B153B /* ContainerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB5041D423B80001B153B /* ContainerVC.m */; };
 		B2DCB5091D42442C001B153B /* back icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2DCB5071D42442C001B153B /* back icon.png */; };
@@ -57,6 +60,10 @@
 		B23441251D38A7B7001DF5D7 /* WTNotification.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTNotification.pch; sourceTree = "<group>"; };
 		B23441291D38CEBB001DF5D7 /* FileHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileHandler.h; sourceTree = "<group>"; };
 		B234412A1D38CEBB001DF5D7 /* FileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHandler.m; sourceTree = "<group>"; };
+		B23A8F571D45EF7A00872C44 /* DetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVC.h; sourceTree = "<group>"; };
+		B23A8F581D45EF7A00872C44 /* DetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVC.m; sourceTree = "<group>"; };
+		B23A8F5A1D46149900872C44 /* bg-splase-screen-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-splase-screen-.png"; sourceTree = "<group>"; };
+		B23A8F5B1D46149900872C44 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		B2DCB5001D4212C4001B153B /* ProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		B2DCB5011D4212C4001B153B /* ProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
 		B2DCB5031D423B80001B153B /* ContainerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerVC.h; sourceTree = "<group>"; };
@@ -139,6 +146,8 @@
 				B20CA29C1D37A77500CE3707 /* SettingVC.m */,
 				B2DCB5001D4212C4001B153B /* ProfileVC.h */,
 				B2DCB5011D4212C4001B153B /* ProfileVC.m */,
+				B23A8F571D45EF7A00872C44 /* DetailVC.h */,
+				B23A8F581D45EF7A00872C44 /* DetailVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -179,6 +188,8 @@
 		B23441261D38AFC4001DF5D7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B23A8F5A1D46149900872C44 /* bg-splase-screen-.png */,
+				B23A8F5B1D46149900872C44 /* logo.png */,
 				B2DCB50B1D424F6F001B153B /* no-profile.png */,
 				B2DCB5071D42442C001B153B /* back icon.png */,
 				B2DCB5081D42442C001B153B /* Edit icon.png */,
@@ -264,7 +275,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B23A8F5C1D46149900872C44 /* bg-splase-screen-.png in Resources */,
 				B2DCB50D1D4253A9001B153B /* Abel-Regular.ttf in Resources */,
+				B23A8F5D1D46149900872C44 /* logo.png in Resources */,
 				B2DCB50C1D424F6F001B153B /* no-profile.png in Resources */,
 				B2DCB50A1D42442C001B153B /* Edit icon.png in Resources */,
 				B20CA28D1D37A4AD00CE3707 /* LaunchScreen.storyboard in Resources */,
@@ -334,6 +347,7 @@
 				B23441221D389D6A001DF5D7 /* StatusTVC.m in Sources */,
 				B234412B1D38CEBB001DF5D7 /* FileHandler.m in Sources */,
 				B20CA2A31D37ABED00CE3707 /* User.m in Sources */,
+				B23A8F591D45EF7A00872C44 /* DetailVC.m in Sources */,
 				B2DCB5021D4212C4001B153B /* ProfileVC.m in Sources */,
 				B20CA2A81D37AC9000CE3707 /* UserHandler.m in Sources */,
 				B20CA2971D37A71C00CE3707 /* MainVC.m in Sources */,
