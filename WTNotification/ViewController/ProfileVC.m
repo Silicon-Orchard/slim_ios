@@ -57,6 +57,8 @@ typedef void(^myCompletion)(BOOL);
     [self registerForKeyboardNotifications];
     
     UITapGestureRecognizer *aTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ScreenTapped)];
+    aTap.cancelsTouchesInView = NO;
+    aTap.delegate = self;
     [self.view addGestureRecognizer:aTap];
 
     
@@ -69,6 +71,8 @@ typedef void(^myCompletion)(BOOL);
 
 
 -(void) configUI {
+    
+    self.popupView.hidden = YES;
     
     //Adjust The view
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -97,7 +101,8 @@ typedef void(^myCompletion)(BOOL);
     self.profileImageView.layer.borderColor = defaultColor.CGColor;
     
     
-
+    self.popupView.layer.cornerRadius = 5;
+    self.popupView.clipsToBounds;
     
 }
 
@@ -153,6 +158,11 @@ typedef void(^myCompletion)(BOOL);
 -(void)tapOnProfileImage{
     NSLog(@"single Tap on imageview");
     
+    
+    [self togglePopupView];
+    
+    
+    /*
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Options" message:@"Either capture an image from the camera or open from the Photo Library." preferredStyle:UIAlertControllerStyleActionSheet];
     
     [actionSheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -194,9 +204,15 @@ typedef void(^myCompletion)(BOOL);
     // Present action sheet.
     [self presentViewController:actionSheet animated:YES completion:nil];
     
+    */
+    
 }
 
 - (IBAction)postBtnPress:(UIButton *)sender {
+    
+    if(!self.popupView.hidden){
+        [self tapOnProfileImage];
+    }
     
     if(uploadedResizedImage != nil || self.statusTF.text.length || self.usernameTF.text.length){
         
@@ -283,6 +299,9 @@ typedef void(^myCompletion)(BOOL);
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
+    if(!self.popupView.hidden){
+        [self tapOnProfileImage];
+    }
     activeField = textField;
 }
 
@@ -304,14 +323,33 @@ typedef void(^myCompletion)(BOOL);
     return YES;
 }
 
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    
+    if (([touch.view isDescendantOfView:self.popupView])) {//change it to your condition
+        return NO;
+    }
+    
+
+    return YES;
+}
+
 -(void)ScreenTapped {
     
     [self.view endEditing:YES];
+    
+    if(!self.popupView.hidden){
+        [self tapOnProfileImage];
+    }
 }
+
+
 
 #pragma mark - Image Picker Controller delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
     
     UIImage *uploadedImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:NULL];
@@ -331,6 +369,7 @@ typedef void(^myCompletion)(BOOL);
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     
     [picker dismissViewControllerAnimated:YES completion:NULL];
+    [self togglePopupView];
 }
 
 
@@ -364,6 +403,68 @@ typedef void(^myCompletion)(BOOL);
 
 
 
+#pragma mark - popup
 
+-(void)togglePopupView {
+    
+    if (!self.popupView.hidden) {
+        
+        [UIView transitionWithView:self.popupView
+                          duration:0.3
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.popupView.hidden = YES;
+                        }
+                        completion:NULL];
+        
+        
+    } else {
+        
+        [UIView transitionWithView:self.popupView
+                          duration:0.3
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.popupView.hidden = NO;
+                        }
+                        completion:NULL];
+        
+    }
+}
 
+- (IBAction)cancelBtnPress:(id)sender {
+    
+    [self togglePopupView];
+}
+
+- (IBAction)galleryBtnPress:(id)sender {
+    
+    [self togglePopupView];
+    
+    // Photo Gallery button tapped.
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    //picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+    
+}
+
+- (IBAction)cameraBtnPress:(id)sender {
+    
+    [self togglePopupView];
+    
+    // Camera button tapped.
+    [self dismissViewControllerAnimated:NO completion:NULL];
+    
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    //picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+}
 @end

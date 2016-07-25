@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileVC : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ProfileVC : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
@@ -25,6 +27,14 @@
 
 - (IBAction)postBtnPress:(UIButton *)sender;
 - (IBAction)tapOnChangeBtnPress:(UIButton *)sender;
+
+
+#pragma mark - popup
+@property (weak, nonatomic) IBOutlet UIView *popupView;
+
+- (IBAction)cancelBtnPress:(id)sender;
+- (IBAction)galleryBtnPress:(id)sender;
+- (IBAction)cameraBtnPress:(id)sender;
 
 
 @end

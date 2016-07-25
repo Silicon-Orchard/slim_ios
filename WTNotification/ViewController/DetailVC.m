@@ -50,8 +50,6 @@
     self.statusLabel.text = self.statusStr;
     [self.statusLabel sizeToFit];
     
-    self.nameLabel.text = @"MR. Rony";
-    
     if(self.imageStr.length){
         
         NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:self.imageStr OfType:kFileTypePhoto];
