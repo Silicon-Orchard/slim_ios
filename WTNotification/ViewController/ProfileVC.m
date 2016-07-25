@@ -89,7 +89,7 @@ typedef void(^myCompletion)(BOOL);
     self.postBtn.layer.cornerRadius = 5;
     self.postBtn.clipsToBounds = YES;
     
-    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2 - 10;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
     self.profileImageView.clipsToBounds = YES;
     
     self.profileImageView.layer.borderWidth = 2.0f;
@@ -284,6 +284,17 @@ typedef void(^myCompletion)(BOOL);
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
     activeField = textField;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 128;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

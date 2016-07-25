@@ -205,13 +205,15 @@ static NSString * CellID = @"StatusCellID";
     
     NSLog(@"user.profileName: %@", user.profileName);
     
-    
     detailVC = (DetailVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"DetailVCID"];
-    [detailVC setUser:user];
+    
+    detailVC.user = user;
+    detailVC.nameStr = user.profileName;
+    detailVC.statusStr = user.profileStatus;
+    detailVC.imageStr = user.profileImageName;
     detailVC.delegate = self;
     
-    //[self.view addSubview:detailVC.view];
-    
+
     CATransition *transition = [CATransition animation];
     transition.duration = 0.5;
     transition.type = kCATransitionPush;
@@ -222,27 +224,24 @@ static NSString * CellID = @"StatusCellID";
     [self.view addSubview:detailVC.view];
     
 
-    
     //[self presentViewController: animated:YES completion:nil];
     
     //Change the selected background view of the cell.
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - DetailVCBackBtnPressDelegate
 
 - (void)detailVCBackBtnPress:(id)sender{
     
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromLeft;
+    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     
-//    CATransition *transition = [CATransition animation];
-//    transition.duration = 0.5;
-//    transition.type = kCATransitionPush;
-//    transition.subtype = kCATransitionFromLeft;
-//    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-//    [detailVC.view.layer addAnimation:transition forKey:nil];
-    
+    [self.view.layer addAnimation:transition forKey:nil];
     [detailVC.view removeFromSuperview];
-    
 
     detailVC = nil;
 }

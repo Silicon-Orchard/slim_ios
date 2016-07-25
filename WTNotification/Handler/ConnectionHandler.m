@@ -116,6 +116,7 @@
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data fromAddress:(NSData *)address withFilterContext:(id)filterContext{
     
+    NSLog(@"received:");
     
     NSString *hostIP;
     uint16_t senderport;
@@ -126,7 +127,7 @@
     NSDictionary* userInfo = @{@"receievedData": data};
 
     NSDictionary *jsonDict = [NSJSONSerialization  JSONObjectWithData:data options:0 error:nil];
-    NSLog(@"received: %@", jsonDict);
+    NSLog(@"%@", jsonDict);
     
     
     

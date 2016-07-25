@@ -19,6 +19,8 @@
     // Do any additional setup after loading the view.
     
     [self configUI];
+    
+    [self setupUI];
 }
 
 
@@ -28,7 +30,7 @@
     self.backBtn.layer.cornerRadius = 5;
     self.backBtn.clipsToBounds = YES;
     
-    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2 - 10;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
     self.profileImageView.clipsToBounds = YES;
     
     self.profileImageView.layer.borderWidth = 2.0f;
@@ -37,18 +39,22 @@
 
 }
 
--(void)setUser:(User *)user{
+-(void)setupUI{
 
-    //self.profileImageView.image =
-    NSLog(@"user.profileName: %@", user.profileName);
     
-    self.nameLabel.text = user.profileName;
-    self.statusLabel.text = user.profileStatus;
+    //self.profileImageView.image =
+    NSLog(@"nameStr: %@", self.nameStr);
+    NSLog(@"statusStr: %@", self.statusStr);
+    
+    self.nameLabel.text = self.nameStr;
+    self.statusLabel.text = self.statusStr;
     [self.statusLabel sizeToFit];
     
-    if(user.profileImageName.length){
+    self.nameLabel.text = @"MR. Rony";
+    
+    if(self.imageStr.length){
         
-        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:user.profileImageName OfType:kFileTypePhoto];
+        NSString *imagePath = [[FileHandler sharedHandler] pathToFileWithFileName:self.imageStr OfType:kFileTypePhoto];
         UIImage *proImage = [UIImage imageWithContentsOfFile:imagePath];
         
         if(proImage != nil){

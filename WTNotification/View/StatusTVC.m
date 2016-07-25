@@ -7,12 +7,20 @@
 //
 
 #import "StatusTVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation StatusTVC
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+        
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+    self.profileImageView.clipsToBounds = YES;
+    
+    self.profileImageView.layer.borderWidth = 1.0f;
+    UIColor *defaultColor = UIColorFromRGB(0x00a651);
+    self.profileImageView.layer.borderColor = defaultColor.CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
