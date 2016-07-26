@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B20CA2791D37A4AD00CE3707"
-               BuildableName = "WTNotification.app"
+               BuildableName = "SILM-Alert.app"
                BlueprintName = "WTNotification"
                ReferencedContainer = "container:WTNotification.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B20CA2791D37A4AD00CE3707"
-            BuildableName = "WTNotification.app"
+            BuildableName = "SILM-Alert.app"
             BlueprintName = "WTNotification"
             ReferencedContainer = "container:WTNotification.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B20CA2791D37A4AD00CE3707"
-            BuildableName = "WTNotification.app"
+            BuildableName = "SILM-Alert.app"
             BlueprintName = "WTNotification"
             ReferencedContainer = "container:WTNotification.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B20CA2791D37A4AD00CE3707"
-            BuildableName = "WTNotification.app"
+            BuildableName = "SILM-Alert.app"
             BlueprintName = "WTNotification"
             ReferencedContainer = "container:WTNotification.xcodeproj">
          </BuildableReference>

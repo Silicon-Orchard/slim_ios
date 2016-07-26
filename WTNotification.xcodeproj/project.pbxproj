@@ -14,7 +14,6 @@
 		B20CA28A1D37A4AD00CE3707 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20CA2891D37A4AD00CE3707 /* Assets.xcassets */; };
 		B20CA28D1D37A4AD00CE3707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B20CA28B1D37A4AD00CE3707 /* LaunchScreen.storyboard */; };
 		B20CA2971D37A71C00CE3707 /* MainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B20CA2961D37A71C00CE3707 /* MainVC.m */; };
-		B20CA29D1D37A77500CE3707 /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B20CA29C1D37A77500CE3707 /* SettingVC.m */; };
 		B20CA2A31D37ABED00CE3707 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B20CA2A01D37ABED00CE3707 /* User.m */; };
 		B20CA2A81D37AC9000CE3707 /* UserHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B20CA2A71D37AC9000CE3707 /* UserHandler.m */; };
 		B20CA2AB1D37AD5700CE3707 /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B20CA2AA1D37AD5700CE3707 /* ConnectionHandler.m */; };
@@ -27,17 +26,22 @@
 		B23A8F611D4635BC00872C44 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5E1D4635BC00872C44 /* camera.png */; };
 		B23A8F621D4635BC00872C44 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5F1D4635BC00872C44 /* cancel.png */; };
 		B23A8F631D4635BC00872C44 /* gallary.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F601D4635BC00872C44 /* gallary.png */; };
+		B26005F81D47339300C780A1 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005F71D47339300C780A1 /* Channel.m */; };
+		B26005FB1D4733A600C780A1 /* ChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005FA1D4733A600C780A1 /* ChannelManager.m */; };
+		B26005FE1D474E3E00C780A1 /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005FD1D474E3E00C780A1 /* ChatVC.m */; };
+		B26006021D4757B500C780A1 /* IPChangeNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B26006011D4757B500C780A1 /* IPChangeNotifier.m */; };
+		B26006051D47737600C780A1 /* Abel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2DCB5061D424188001B153B /* Abel-Regular.ttf */; };
 		B2DCB5021D4212C4001B153B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB5011D4212C4001B153B /* ProfileVC.m */; };
 		B2DCB5051D423B80001B153B /* ContainerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB5041D423B80001B153B /* ContainerVC.m */; };
 		B2DCB5091D42442C001B153B /* back icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2DCB5071D42442C001B153B /* back icon.png */; };
 		B2DCB50A1D42442C001B153B /* Edit icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B2DCB5081D42442C001B153B /* Edit icon.png */; };
 		B2DCB50C1D424F6F001B153B /* no-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = B2DCB50B1D424F6F001B153B /* no-profile.png */; };
-		B2DCB50D1D4253A9001B153B /* Abel-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2DCB5061D424188001B153B /* Abel-Regular.ttf */; };
+		B2DCB5B61D477CAB00F9E24A /* SelectTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DCB5B51D477CAB00F9E24A /* SelectTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3159522036DB1F5E9E1BBFD1 /* Pods-WTNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTNotification.release.xcconfig"; path = "Pods/Target Support Files/Pods-WTNotification/Pods-WTNotification.release.xcconfig"; sourceTree = "<group>"; };
-		B20CA27A1D37A4AD00CE3707 /* WTNotification.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTNotification.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B20CA27A1D37A4AD00CE3707 /* SILM-Alert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SILM-Alert.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B20CA27E1D37A4AD00CE3707 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B20CA2801D37A4AD00CE3707 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B20CA2811D37A4AD00CE3707 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -47,8 +51,6 @@
 		B20CA28E1D37A4AD00CE3707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B20CA2951D37A71C00CE3707 /* MainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainVC.h; sourceTree = "<group>"; };
 		B20CA2961D37A71C00CE3707 /* MainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainVC.m; sourceTree = "<group>"; };
-		B20CA29B1D37A77500CE3707 /* SettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
-		B20CA29C1D37A77500CE3707 /* SettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
 		B20CA29F1D37ABED00CE3707 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		B20CA2A01D37ABED00CE3707 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B20CA2A61D37AC9000CE3707 /* UserHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHandler.h; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 		B23A8F5E1D4635BC00872C44 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		B23A8F5F1D4635BC00872C44 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		B23A8F601D4635BC00872C44 /* gallary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gallary.png; sourceTree = "<group>"; };
+		B26005F61D47339300C780A1 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
+		B26005F71D47339300C780A1 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
+		B26005F91D4733A600C780A1 /* ChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelManager.h; sourceTree = "<group>"; };
+		B26005FA1D4733A600C780A1 /* ChannelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelManager.m; sourceTree = "<group>"; };
+		B26005FC1D474E3E00C780A1 /* ChatVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
+		B26005FD1D474E3E00C780A1 /* ChatVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		B26006001D4757B500C780A1 /* IPChangeNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPChangeNotifier.h; sourceTree = "<group>"; };
+		B26006011D4757B500C780A1 /* IPChangeNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPChangeNotifier.m; sourceTree = "<group>"; };
 		B2DCB5001D4212C4001B153B /* ProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		B2DCB5011D4212C4001B153B /* ProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
 		B2DCB5031D423B80001B153B /* ContainerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerVC.h; sourceTree = "<group>"; };
@@ -78,6 +88,8 @@
 		B2DCB5071D42442C001B153B /* back icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back icon.png"; sourceTree = "<group>"; };
 		B2DCB5081D42442C001B153B /* Edit icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Edit icon.png"; sourceTree = "<group>"; };
 		B2DCB50B1D424F6F001B153B /* no-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-profile.png"; sourceTree = "<group>"; };
+		B2DCB5B41D477CAB00F9E24A /* SelectTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTVC.h; sourceTree = "<group>"; };
+		B2DCB5B51D477CAB00F9E24A /* SelectTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTVC.m; sourceTree = "<group>"; };
 		B72D6F087C2152D0CCF0304D /* libPods-WTNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WTNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA1C0C2909115AE12C46F1CF /* Pods-WTNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTNotification.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WTNotification/Pods-WTNotification.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,7 +119,7 @@
 		B20CA27B1D37A4AD00CE3707 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B20CA27A1D37A4AD00CE3707 /* WTNotification.app */,
+				B20CA27A1D37A4AD00CE3707 /* SILM-Alert.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,12 +160,12 @@
 				B2DCB5041D423B80001B153B /* ContainerVC.m */,
 				B20CA2951D37A71C00CE3707 /* MainVC.h */,
 				B20CA2961D37A71C00CE3707 /* MainVC.m */,
-				B20CA29B1D37A77500CE3707 /* SettingVC.h */,
-				B20CA29C1D37A77500CE3707 /* SettingVC.m */,
 				B2DCB5001D4212C4001B153B /* ProfileVC.h */,
 				B2DCB5011D4212C4001B153B /* ProfileVC.m */,
 				B23A8F571D45EF7A00872C44 /* DetailVC.h */,
 				B23A8F581D45EF7A00872C44 /* DetailVC.m */,
+				B26005FC1D474E3E00C780A1 /* ChatVC.h */,
+				B26005FD1D474E3E00C780A1 /* ChatVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -161,6 +173,8 @@
 		B20CA29E1D37AB9D00CE3707 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B26005F61D47339300C780A1 /* Channel.h */,
+				B26005F71D47339300C780A1 /* Channel.m */,
 				B20CA29F1D37ABED00CE3707 /* User.h */,
 				B20CA2A01D37ABED00CE3707 /* User.m */,
 			);
@@ -170,6 +184,9 @@
 		B20CA2A51D37AC7100CE3707 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				B26005FF1D4757B500C780A1 /* IPChangeNotifier */,
+				B26005F91D4733A600C780A1 /* ChannelManager.h */,
+				B26005FA1D4733A600C780A1 /* ChannelManager.m */,
 				B23441291D38CEBB001DF5D7 /* FileHandler.h */,
 				B234412A1D38CEBB001DF5D7 /* FileHandler.m */,
 				B20CA2A61D37AC9000CE3707 /* UserHandler.h */,
@@ -187,6 +204,8 @@
 			children = (
 				B23441201D389D6A001DF5D7 /* StatusTVC.h */,
 				B23441211D389D6A001DF5D7 /* StatusTVC.m */,
+				B2DCB5B41D477CAB00F9E24A /* SelectTVC.h */,
+				B2DCB5B51D477CAB00F9E24A /* SelectTVC.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -205,6 +224,15 @@
 				B2DCB5061D424188001B153B /* Abel-Regular.ttf */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		B26005FF1D4757B500C780A1 /* IPChangeNotifier */ = {
+			isa = PBXGroup;
+			children = (
+				B26006001D4757B500C780A1 /* IPChangeNotifier.h */,
+				B26006011D4757B500C780A1 /* IPChangeNotifier.m */,
+			);
+			path = IPChangeNotifier;
 			sourceTree = "<group>";
 		};
 		C5B0EABF4313D08AC540C5CF /* Frameworks */ = {
@@ -244,7 +272,7 @@
 			);
 			name = WTNotification;
 			productName = WTNotification;
-			productReference = B20CA27A1D37A4AD00CE3707 /* WTNotification.app */;
+			productReference = B20CA27A1D37A4AD00CE3707 /* SILM-Alert.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -258,6 +286,7 @@
 				TargetAttributes = {
 					B20CA2791D37A4AD00CE3707 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 3TC5LJ6B2U;
 					};
 				};
 			};
@@ -284,8 +313,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B26006051D47737600C780A1 /* Abel-Regular.ttf in Resources */,
 				B23A8F5C1D46149900872C44 /* bg-splase-screen-.png in Resources */,
-				B2DCB50D1D4253A9001B153B /* Abel-Regular.ttf in Resources */,
 				B23A8F5D1D46149900872C44 /* logo.png in Resources */,
 				B2DCB50C1D424F6F001B153B /* no-profile.png in Resources */,
 				B23A8F621D4635BC00872C44 /* cancel.png in Resources */,
@@ -355,15 +384,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2DCB5051D423B80001B153B /* ContainerVC.m in Sources */,
+				B26005FB1D4733A600C780A1 /* ChannelManager.m in Sources */,
+				B26005F81D47339300C780A1 /* Channel.m in Sources */,
+				B26005FE1D474E3E00C780A1 /* ChatVC.m in Sources */,
 				B20CA2AB1D37AD5700CE3707 /* ConnectionHandler.m in Sources */,
 				B23441221D389D6A001DF5D7 /* StatusTVC.m in Sources */,
+				B2DCB5B61D477CAB00F9E24A /* SelectTVC.m in Sources */,
 				B234412B1D38CEBB001DF5D7 /* FileHandler.m in Sources */,
 				B20CA2A31D37ABED00CE3707 /* User.m in Sources */,
 				B23A8F591D45EF7A00872C44 /* DetailVC.m in Sources */,
 				B2DCB5021D4212C4001B153B /* ProfileVC.m in Sources */,
 				B20CA2A81D37AC9000CE3707 /* UserHandler.m in Sources */,
 				B20CA2971D37A71C00CE3707 /* MainVC.m in Sources */,
-				B20CA29D1D37A77500CE3707 /* SettingVC.m in Sources */,
+				B26006021D4757B500C780A1 /* IPChangeNotifier.m in Sources */,
 				B20CA2821D37A4AD00CE3707 /* AppDelegate.m in Sources */,
 				B20CA2AF1D37B02200CE3707 /* MessageHandler.m in Sources */,
 				B20CA27F1D37A4AD00CE3707 /* main.m in Sources */,
@@ -410,7 +443,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Abdullah Al Mahmood (3TC5LJ6B2U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Abdullah Al Mahmood (3TC5LJ6B2U)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -429,9 +463,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "559e07ca-a704-473c-b6c3-b8c47bfda315";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -455,7 +490,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Abdullah Al Mahmood (3TC5LJ6B2U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Abdullah Al Mahmood (3TC5LJ6B2U)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -468,8 +504,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "559e07ca-a704-473c-b6c3-b8c47bfda315";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -481,13 +518,16 @@
 			baseConfigurationReference = CA1C0C2909115AE12C46F1CF /* Pods-WTNotification.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WTNotification/WTNotification.pch;
 				INFOPLIST_FILE = WTNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.WTNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.SILMAlert;
+				PRODUCT_NAME = "SILM-Alert";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -496,13 +536,16 @@
 			baseConfigurationReference = 3159522036DB1F5E9E1BBFD1 /* Pods-WTNotification.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WTNotification/WTNotification.pch;
 				INFOPLIST_FILE = WTNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.WTNotification;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.SILMAlert;
+				PRODUCT_NAME = "SILM-Alert";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

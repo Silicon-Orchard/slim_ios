@@ -7,16 +7,35 @@
 //
 
 #import "ProfileVC.h"
+#import "SelectTVC.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define kDescriptionPlaceholder @"Write your status ..."
+
 typedef void(^myCompletion)(BOOL);
+
+typedef enum ActiveField : NSUInteger {
+    kActiveTextField,
+    kActiveTextView
+} ActiveField;
 
 @interface ProfileVC (){
     
     UIImage *uploadedResizedImage;
     
-    UITextField *activeField;
+    
+    ActiveField activeField;
+    UITextField *activeTextField;
+    UITextView * activeTextView;
+
+    BOOL isWriting;
+    
+    int statusChannel;
+    
+    NSArray *statusAry;
+    
+    UILabel *placeholderLabel;
 }
 
 @end
@@ -26,13 +45,34 @@ typedef void(^myCompletion)(BOOL);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    statusChannel = -1;
     self.usernameTF.delegate = self;
     self.statusTF.delegate = self;
+    self.writeStatusTextView.delegate = self;
+    
+    self.selectStatusTableView.dataSource = self;
+    self.selectStatusTableView.delegate = self;
+    
+    
+    //Initialise
+    
+    statusAry = @[
+                  @"Waiting ...",
+                  @"In Meeting Room",
+                  @"Watching Movie",
+                  @"Playing Table Tenis",
+                  @"Fixing bugs",
+                  @"Creating bugs"
+                  ];
+    
     
     User *mySelf = [UserHandler sharedInstance].mySelf;
     
     self.usernameTF.text = mySelf.profileName;
     self.statusTF.text = mySelf.profileStatus;
+    
+    
+    
     
     
     if(mySelf.profileImageName.length){
@@ -102,7 +142,33 @@ typedef void(^myCompletion)(BOOL);
     
     
     self.popupView.layer.cornerRadius = 5;
-    self.popupView.clipsToBounds;
+    self.popupView.clipsToBounds = YES;
+    
+    self.statusPopupView.layer.cornerRadius = 5;
+    self.statusPopupView.clipsToBounds = YES;
+    
+    
+    [[self.writeStatusTextView layer] setBorderColor:[[UIColor whiteColor] CGColor]];
+    [[self.writeStatusTextView layer] setBorderWidth:2];
+    [[self.writeStatusTextView layer] setCornerRadius:10];
+    
+    
+    //Set PlaceHolder
+    // you might have to play around a little with numbers in CGRectMake method
+    // they work fine with my settings
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.writeStatusTextView.frame.size.width - 20.0, 34.0)];
+    [placeholderLabel setText:kDescriptionPlaceholder];
+    // placeholderLabel is instance variable retained by view controller
+    [placeholderLabel setBackgroundColor:[UIColor clearColor]];
+    [placeholderLabel setFont:self.writeStatusTextView.font];
+    [placeholderLabel setTextColor:[UIColor lightGrayColor]];
+    
+
+    // textView is UITextView object you want add placeholder text to
+    [self.writeStatusTextView addSubview:placeholderLabel];
+    
+    //self.writeStatusTextView.text = @"Write your status ...";
+    //self.writeStatusTextView.textColor = [UIColor lightGrayColor];
     
 }
 
@@ -120,6 +186,8 @@ typedef void(^myCompletion)(BOOL);
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
+    
+    
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
@@ -130,10 +198,24 @@ typedef void(^myCompletion)(BOOL);
     // Your application might not need or want this behavior.
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
-    if (!CGRectContainsPoint(aRect, activeField.frame.origin) ) {
-        CGPoint scrollPoint = CGPointMake(0.0, activeField.frame.origin.y-kbSize.height);
-        [self.scrollView setContentOffset:scrollPoint animated:YES];
+    
+    if(activeField == kActiveTextField){
+        
+        if (!CGRectContainsPoint(aRect, activeTextField.frame.origin) ) {
+            CGPoint scrollPoint = CGPointMake(0.0, activeTextField.frame.origin.y-kbSize.height);
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+        }
+    }else{
+        
+        if (!CGRectContainsPoint(aRect, activeTextView.frame.origin) ) {
+            
+            CGPoint scrollPoint = CGPointMake(0.0, activeTextView.frame.origin.y-kbSize.height);
+            
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+        }
     }
+    
+
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
@@ -299,13 +381,25 @@ typedef void(^myCompletion)(BOOL);
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
+    if(textField.tag == self.statusTF.tag){
+        [textField resignFirstResponder];
+        [self toggleStatusPopupView];
+        
+    }
+    
+    
     if(!self.popupView.hidden){
         [self tapOnProfileImage];
     }
-    activeField = textField;
+    
+    activeField = kActiveTextField;
+    activeTextField = textField;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    return NO;
+    
     // Prevent crashing undo bug – see note below.
     if(range.length + range.location > textField.text.length)
     {
@@ -331,6 +425,11 @@ typedef void(^myCompletion)(BOOL);
         return NO;
     }
     
+    if (([touch.view isDescendantOfView:self.statusPopupView])) {//change it to your condition
+        [self.view endEditing:YES];
+        return NO;
+    }
+    
 
     return YES;
 }
@@ -342,6 +441,10 @@ typedef void(^myCompletion)(BOOL);
     if(!self.popupView.hidden){
         [self tapOnProfileImage];
     }
+    if(!self.statusPopupView.hidden){
+        [self toggleStatusPopupView];
+    }
+
 }
 
 
@@ -414,6 +517,7 @@ typedef void(^myCompletion)(BOOL);
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
                             self.popupView.hidden = YES;
+                            self.backgroundView.hidden = YES;
                         }
                         completion:NULL];
         
@@ -425,6 +529,7 @@ typedef void(^myCompletion)(BOOL);
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
                             self.popupView.hidden = NO;
+                            self.backgroundView.hidden = NO;
                         }
                         completion:NULL];
         
@@ -466,5 +571,173 @@ typedef void(^myCompletion)(BOOL);
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
     [self presentViewController:picker animated:YES completion:NULL];
+}
+
+#pragma mark - StatusPopup
+
+-(void)toggleStatusPopupView {
+    
+    if (!self.statusPopupView.hidden) {
+        
+        
+        [UIView transitionWithView:self.statusPopupView
+                          duration:0.3
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.statusPopupView.hidden = YES;
+                            self.backgroundView.hidden = YES;
+                            //self.scrollView.backgroundColor = [UIColor whiteColor];
+                        }
+                        completion:NULL];
+        
+        
+    } else {
+        
+//        UIView *aView = [[UIView alloc] initWithFrame:self.view.frame];
+//        aView.backgroundColor = [UIColor grayColor];
+//        [self.view addSubview:aView];
+        
+        [self.WriteStatusBtn setTitle:@"Write Your Status" forState:UIControlStateNormal];
+        self.StatusPopupTitle.text = @"Your Status";
+        isWriting = NO;
+        
+        
+        self.selectStatusTableView.hidden=NO;
+        self.writeStatusTextView.hidden = YES;
+        
+        [UIView transitionWithView:self.statusPopupView
+                          duration:0.3
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            self.statusPopupView.hidden = NO;
+                            self.backgroundView.hidden = NO;
+                            //self.scrollView.backgroundColor = [UIColor lightGrayColor];
+                        }
+                        completion:NULL];
+        
+    }
+}
+
+- (IBAction)statusCancelBtnPress:(id)sender {
+    
+    [self toggleStatusPopupView];
+}
+
+- (IBAction)writeStatusBtnPress:(id)sender {
+    
+    
+    
+    if(!isWriting){
+        
+        isWriting = YES;
+        
+        self.selectStatusTableView.hidden=YES;
+        self.writeStatusTextView.hidden = NO;
+        
+        [self.WriteStatusBtn setTitle:@"Done" forState:UIControlStateNormal];
+        self.StatusPopupTitle.text = @"Write Your Status";
+    }else{
+
+        statusChannel = -1;
+        self.statusTF.text = self.writeStatusTextView.text;
+        [self toggleStatusPopupView];
+    }
+    
+}
+
+
+#pragma mark - UITextViewDelegate
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+//    if ([text isEqualToString:@"\n"]) {
+//        [textView resignFirstResponder];
+//    }
+    
+    return textView.text.length + (text.length - range.length) <= 128;
+    
+    //return YES;
+}
+-(void)textViewDidBeginEditing:(UITextView *)textView{
+    statusChannel = -1;
+    NSLog(@"Did begin editing");
+    activeField = kActiveTextView;
+    activeTextView = textView;
+}
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView {
+    
+//    textView.text = @"";
+//    textView.textColor = [UIColor whiteColor];
+    
+      return YES;
+}
+
+
+- (void) textViewDidChange:(UITextView *)textView
+{
+    if(![textView hasText]) {
+        [textView addSubview:placeholderLabel];
+        [UIView animateWithDuration:0.15 animations:^{
+            placeholderLabel.alpha = 1.0;
+        }];
+    } else if ([[textView subviews] containsObject:placeholderLabel]) {
+        
+        [UIView animateWithDuration:0.15 animations:^{
+            placeholderLabel.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [placeholderLabel removeFromSuperview];
+        }];
+    }
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if (![textView hasText]) {
+        [textView addSubview:placeholderLabel];
+        [UIView animateWithDuration:0.15 animations:^{
+            placeholderLabel.alpha = 1.0;
+        }];
+    }
+}
+
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    
+    //[textView resignFirstResponder];
+    return YES;
+}
+
+
+#pragma mark - Table View Data source
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection: (NSInteger)section{
+    return [statusAry count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *cellIdentifier = @"SelectTVCID";
+    
+    SelectTVC *cell =  (SelectTVC *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc]initWithStyle: UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//    }
+    
+    NSString *statusStr = statusAry[indexPath.row];
+
+    cell.StatusLabel.text =statusStr;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    statusChannel = indexPath.row;
+    
+    NSString *StatusStr = statusAry[indexPath.row];
+    self.statusTF.text = StatusStr;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self toggleStatusPopupView];
 }
 @end

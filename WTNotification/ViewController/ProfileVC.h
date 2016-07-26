@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileVC : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
+@interface ProfileVC : UIViewController <UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -29,12 +29,29 @@
 - (IBAction)tapOnChangeBtnPress:(UIButton *)sender;
 
 
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+
 #pragma mark - popup
 @property (weak, nonatomic) IBOutlet UIView *popupView;
 
 - (IBAction)cancelBtnPress:(id)sender;
 - (IBAction)galleryBtnPress:(id)sender;
 - (IBAction)cameraBtnPress:(id)sender;
+
+
+#pragma mark - StatusPopup
+
+@property (weak, nonatomic) IBOutlet UIView *statusPopupView;
+@property (weak, nonatomic) IBOutlet UILabel *StatusPopupTitle;
+@property (weak, nonatomic) IBOutlet UITableView *selectStatusTableView;
+@property (weak, nonatomic) IBOutlet UITextView *writeStatusTextView;
+@property (weak, nonatomic) IBOutlet UIButton *WriteStatusBtn;
+
+
+- (IBAction)statusCancelBtnPress:(id)sender;
+- (IBAction)writeStatusBtnPress:(id)sender;
+
+
 
 
 @end
