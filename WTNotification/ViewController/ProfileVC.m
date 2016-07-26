@@ -398,7 +398,9 @@ typedef enum ActiveField : NSUInteger {
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    return NO;
+    if(textField.tag == self.statusTF.tag){
+        return NO;
+    }
     
     // Prevent crashing undo bug – see note below.
     if(range.length + range.location > textField.text.length)
