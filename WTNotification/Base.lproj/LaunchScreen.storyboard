@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-splase-screen-.png" translatesAutoresizingMaskIntoConstraints="NO" id="mss-Tf-0I3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash-screen.png" translatesAutoresizingMaskIntoConstraints="NO" id="mss-Tf-0I3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ovk-d9-0p7">
@@ -46,7 +46,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg-splase-screen-.png" width="750" height="1334"/>
-        <image name="logo.png" width="231" height="229"/>
+        <image name="logo.png" width="312" height="322"/>
+        <image name="splash-screen.png" width="750" height="1334"/>
     </resources>
 </document>

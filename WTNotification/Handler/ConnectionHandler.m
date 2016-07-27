@@ -149,6 +149,10 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_UPDATE_PROFILE_INFO object:nil userInfo:userInfo];
             break;
             
+        case TYPE_MESSAGE:
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_CHAT_MESSAGE_RECEIVED object:nil userInfo:userInfo];
+            break;
+            
         default:
             break;
     }

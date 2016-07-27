@@ -44,6 +44,7 @@
 
 - (void)setCurrentChannel:(Channel *) channel{
 
+    
     _currentChannel = channel;
     _currentChannelID = channel.channelID;
     _hostUser = channel.hostUser;

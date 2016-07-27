@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden = YES;
+    
     // add viewController so you can switch them later.
     UIViewController *vc = [self viewControllerForSegmentIndex:self.typeSegmentedControl.selectedSegmentIndex];
     [self addChildViewController:vc];

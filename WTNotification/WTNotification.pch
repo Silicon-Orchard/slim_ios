@@ -20,6 +20,9 @@
 #import "ConnectionHandler.h"
 #import "FileHandler.h"
 
+#import "Channel.h"
+#import "ChannelManager.h"
+
 
 
 #endif /* WTNotification_pch */

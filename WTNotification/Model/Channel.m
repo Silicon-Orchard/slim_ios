@@ -27,10 +27,11 @@
         self.memberList = [NSMutableArray new];
         self.channelID = channelID;
         self.hostUser = host;
+        self.isHost = NO;
         
-        if(channelID == kChannelIDPublicA || channelID == kChannelIDPublicB){
-            self.isHost = NO;
-        }
+//        if(channelID == kChannelIDPublicA || channelID == kChannelIDPublicB){
+//            self.isHost = NO;
+//        }
     }
     return self;
 }

@@ -23,17 +23,27 @@
 @property (nonatomic, assign) uint16_t clientPort;
 @property (nonatomic, assign) int channelID;
 
+
+#pragma mark - Extra Property
+@property (nonatomic, strong) NSArray *statusArray;
+
+
+#pragma mark - Helpers
 +(MessageHandler*)sharedHandler;
 
 
 
 -(NSString *)getUUID;
 -(NSString *)getIPAddress;
+-(BOOL)isValidIPAddress:(NSString *)ipAddress;
 
 
 -(NSString *)requestInfoAtStartMessage;
 -(NSString *)acknowledgeDeviceInNetwork;
 -(NSString *)postMessage;
+
+
+-(NSString *)createChatMessageWithChannelID:(int) channelID deviceName:(NSString *)deviceNameForChannel chatmessage:(NSString *)message;
 
 -(NSString *)leftApplicationMessage;
 

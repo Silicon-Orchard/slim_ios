@@ -15,12 +15,15 @@
 @end
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>{
     
     id myAppDelegate;
 }
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic)  UIAlertView *alertView;
+@property (nonatomic) BOOL alertShowing;
 
 
 @end

@@ -46,6 +46,20 @@
     return self.usersArray;
 }
 
+- (NSArray *)getAllUsersOfSameStatus {
+    
+    NSMutableArray * ary = [[NSMutableArray alloc] init];
+
+    for (User *user in self.usersArray) {
+        if(user.statusChannel != -1 && user.statusChannel  == self.mySelf.statusChannel){
+            
+            [ary addObject:user];
+        }
+    }
+    
+    return ary;
+}
+
 - (NSArray *)getAllUserIPs {
     
     NSMutableArray *ipArray = [NSMutableArray new];
@@ -57,6 +71,21 @@
     
     return ipArray;
 }
+
+- (NSArray *)getAllUserIPsOfSameStatus{
+    
+    NSMutableArray * ipArray = [[NSMutableArray alloc] init];
+    
+    for (User *user in self.usersArray) {
+        if(user.statusChannel != -1 && [user.deviceIP isEqualToString:self.mySelf.deviceIP]){
+            
+            [ipArray addObject:user.deviceIP];
+        }
+    }
+    
+    return ipArray;
+}
+
 
 -(User *)getUserOfIndex:(NSUInteger)index {
     

@@ -18,11 +18,12 @@
 @property (nonatomic, strong) NSString *profileName;
 @property (nonatomic, strong) NSString *profileStatus;
 @property (nonatomic, strong) NSString *profileImageName;
+@property (nonatomic) int statusChannel;
 
 
 
 -(instancetype)initWithDictionary:(NSDictionary *)jsonDict andActive:(BOOL)active;
--(instancetype)initWithIP:(NSString *)ip deviceID:(NSString* )ID name:(NSString*)name status:(NSString *)status imageName:(NSString *)imageName andActive:(BOOL)active;
+-(instancetype)initWithIP:(NSString *)ip deviceID:(NSString* )ID name:(NSString*)name status:(NSString *)status statusChannel:(int)statusChannel imageName:(NSString *)imageName andActive:(BOOL)active;
 
 
 @end

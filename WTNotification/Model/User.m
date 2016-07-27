@@ -24,15 +24,18 @@
 
 -(instancetype)initWithDictionary:(NSDictionary *)jsonDict andActive:(BOOL)active{
     
+    int statusChannel = [[jsonDict objectForKey:JSON_KEY_PROFILE_STATUS_CHANNEL] intValue];
+    
     return [self initWithIP:[jsonDict objectForKey:JSON_KEY_IP_ADDRESS]
                    deviceID:[jsonDict objectForKey:JSON_KEY_DEVICE_ID]
                        name:[jsonDict objectForKey:JSON_KEY_PROFILE_NAME]
                      status:[jsonDict objectForKey:JSON_KEY_PROFILE_STATUS]
+              statusChannel:statusChannel
                   imageName:[jsonDict objectForKey:JSON_KEY_PROFILE_IMAGE]
                   andActive:active];
 }
 
--(instancetype)initWithIP:(NSString *)ip deviceID:(NSString* )ID name:(NSString*)name status:(NSString *)status imageName:(NSString *)imageName andActive:(BOOL)active{
+-(instancetype)initWithIP:(NSString *)ip deviceID:(NSString* )ID name:(NSString*)name status:(NSString *)status statusChannel:(int)statusChannel imageName:(NSString *)imageName andActive:(BOOL)active{
     
     if(self = [super init]) {
         
@@ -42,6 +45,7 @@
         self.profileName = name;
         self.profileStatus = status;
         self.profileImageName = imageName;
+        self.statusChannel = statusChannel;
         
         self.isActive = active;
     }

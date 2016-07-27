@@ -8,6 +8,7 @@
 
 #import "ProfileVC.h"
 #import "SelectTVC.h"
+#import "ChatVC.h"
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -45,7 +46,8 @@ typedef enum ActiveField : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    statusChannel = -1;
+    NSNumber *profileStatusChannel = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_KEY_STATUS_CHANNEL];
+    statusChannel = profileStatusChannel.intValue;
     self.usernameTF.delegate = self;
     self.statusTF.delegate = self;
     self.writeStatusTextView.delegate = self;
@@ -55,16 +57,8 @@ typedef enum ActiveField : NSUInteger {
     
     
     //Initialise
-    
-    statusAry = @[
-                  @"Waiting ...",
-                  @"In Meeting Room",
-                  @"Watching Movie",
-                  @"Playing Table Tenis",
-                  @"Fixing bugs",
-                  @"Creating bugs"
-                  ];
-    
+    // Chess, Lunch, Coffee, Pool, Football, Board Games, Hangout, Walk, Run
+    statusAry = [MessageHandler sharedHandler].statusArray;
     
     User *mySelf = [UserHandler sharedInstance].mySelf;
     
@@ -322,6 +316,11 @@ typedef enum ActiveField : NSUInteger {
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
             
+            //statusChannel
+            [UserHandler sharedInstance].mySelf.statusChannel = statusChannel;
+            [[NSUserDefaults standardUserDefaults] setObject:@(statusChannel) forKey:USERDEFAULTS_KEY_STATUS_CHANNEL];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             //save the image
             if(!CGSizeEqualToSize(uploadedResizedImage.size, CGSizeZero)){
                 
@@ -344,10 +343,11 @@ typedef enum ActiveField : NSUInteger {
                     
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Successfully notification send."
                                                                     message: @""
-                                                                   delegate: nil
+                                                                   delegate: self
                                                           cancelButtonTitle:@"OK"
                                                           otherButtonTitles:nil];
                     
+                    alert.tag = 50;
                     [alert show];
                     
                     
@@ -375,6 +375,72 @@ typedef enum ActiveField : NSUInteger {
     }
     
 }
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if(alertView.tag == 55){
+        
+        if(buttonIndex == 0){
+            
+            //Decline, send Reply
+            
+            
+        }else if(buttonIndex == 1){
+            
+            int channelID = [UserHandler sharedInstance].mySelf.statusChannel;
+            Channel *channel = [[Channel alloc] initChannelWithID:channelID];
+            
+            NSArray *memberOfSameStatus = [[UserHandler sharedInstance] getAllUsersOfSameStatus];
+            for (User *member in memberOfSameStatus) {
+                [channel addMember:member];
+            }
+            
+            [[ChannelManager sharedInstance] setCurrentChannel:channel];
+            
+            //navigate to chatview controller
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ChatVC *chatVC = (ChatVC *)[storyboard instantiateViewControllerWithIdentifier:@"ChatVCID"];
+            
+            
+            chatVC.currentActiveChannel = [[ChannelManager sharedInstance] currentChannel];
+            
+            //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
+            //self.navigationController
+            [self.navigationController pushViewController:chatVC animated:YES];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    // the user clicked OK
+    
+    if(alertView.tag == 50){
+        
+        NSArray *sameStatusUser = [[UserHandler sharedInstance] getAllUsersOfSameStatus];
+        if (buttonIndex == 0 && sameStatusUser.count) {
+            //search same status user
+            
+            NSString * statusStr = [UserHandler sharedInstance].mySelf.profileStatus;
+            
+            NSString *message =  [NSString stringWithFormat:@"Others have the same \"%@\" status as yours. Would you like to join them?", statusStr];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Chatting Request"
+                                                            message: message
+                                                           delegate: self
+                                                  cancelButtonTitle:@"Decline"
+                                                  otherButtonTitles:@"Accept", nil];
+            
+            alert.tag = 55;
+            [alert show];
+            
+            
+        }
+    }
+}
+
 
 
 #pragma mark - UITextFieldDelegate
@@ -428,7 +494,11 @@ typedef enum ActiveField : NSUInteger {
     }
     
     if (([touch.view isDescendantOfView:self.statusPopupView])) {//change it to your condition
-        [self.view endEditing:YES];
+        
+        if (!([touch.view isDescendantOfView:self.writeStatusTextView])) {
+            [self.view endEditing:YES];
+        }
+        
         return NO;
     }
     
@@ -660,20 +730,23 @@ typedef enum ActiveField : NSUInteger {
     
     //return YES;
 }
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView {
+    
+    //    textView.text = @"";
+    //    textView.textColor = [UIColor whiteColor];
+    
+    return YES;
+}
+
 -(void)textViewDidBeginEditing:(UITextView *)textView{
-    statusChannel = -1;
+    
     NSLog(@"Did begin editing");
     activeField = kActiveTextView;
     activeTextView = textView;
 }
 
-- (BOOL) textViewShouldBeginEditing:(UITextView *)textView {
-    
-//    textView.text = @"";
-//    textView.textColor = [UIColor whiteColor];
-    
-      return YES;
-}
+
 
 
 - (void) textViewDidChange:(UITextView *)textView
@@ -694,6 +767,19 @@ typedef enum ActiveField : NSUInteger {
 }
 
 
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    
+    //[textView resignFirstResponder];
+//    if (isEditing) {
+//        return NO;
+//    }else{
+//        return YES;
+//    }
+    
+    return YES;
+    
+}
+
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if (![textView hasText]) {
@@ -702,12 +788,6 @@ typedef enum ActiveField : NSUInteger {
             placeholderLabel.alpha = 1.0;
         }];
     }
-}
-
--(BOOL)textViewShouldEndEditing:(UITextView *)textView{
-    
-    //[textView resignFirstResponder];
-    return YES;
 }
 
 

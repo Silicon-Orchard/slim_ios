@@ -17,7 +17,11 @@
 
 
 - (NSArray *)getUsers;
+- (NSArray *)getAllUsersOfSameStatus;
+
 - (NSArray *)getAllUserIPs;
+- (NSArray *)getAllUserIPsOfSameStatus;
+
 - (User *)getUserOfIndex:(NSUInteger)index;
 
 -(void)addUser:(User *)user;

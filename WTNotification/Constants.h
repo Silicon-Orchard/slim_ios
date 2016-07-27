@@ -83,6 +83,7 @@
 #define JSON_KEY_DEVICE_ID @"device_id"
 #define JSON_KEY_PROFILE_NAME @"device_name"
 #define JSON_KEY_PROFILE_STATUS @"status"
+#define JSON_KEY_PROFILE_STATUS_CHANNEL @"status_channel"
 #define JSON_KEY_PROFILE_IMAGE @"base64image"
 
 
@@ -132,6 +133,7 @@
 #define USERDEFAULTS_KEY_NAME @"UserNameKey"
 #define USERDEFAULTS_KEY_IMAGE @"UserImageKey"
 #define USERDEFAULTS_KEY_STATUS @"UserStatusKey"
+#define USERDEFAULTS_KEY_STATUS_CHANNEL @"UserStatusChannelKey"
 
 #define USERDEFAULTS_KEY_UUID @"UUIDkey"
 
@@ -144,7 +146,19 @@
 
 
 
+#define NOTIFICATIONKEY_CHAT_MESSAGE_RECEIVED @"ChatMessageReceivedNotification"
+
+#define NOTIFICATIONKEY_CHANNEL_JOINED @"JoinedChannelNotification"
+#define NOTIFICATIONKEY_CHANNEL_LEFT @"leftChannelNotification"
+
+
+
 #define NOTIFICATIONKEY_DEVICE_LEFT_SYSTEM @"deviceLeftSystemNotification"
+//#define NEW_DEVICE_CONFIRMED_NOTIFICATIONKEY @"newdeviceConfirmedNotification"
+
+
+
+
 
 #define NOTIFICATIONKEY_NEW_DEVICE_JOINED_APPDELEGATE @"newDeviceCreatedNotificationAppDelegate"
 #define NOTIFICATIONKEY_NEW_DEVICE_CONFIRMED_APPDELEGATE @"newDeviceConfirmedNotificationAppDelegate"

@@ -21,11 +21,18 @@
 		B23441221D389D6A001DF5D7 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23441211D389D6A001DF5D7 /* StatusTVC.m */; };
 		B234412B1D38CEBB001DF5D7 /* FileHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B234412A1D38CEBB001DF5D7 /* FileHandler.m */; };
 		B23A8F591D45EF7A00872C44 /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B23A8F581D45EF7A00872C44 /* DetailVC.m */; };
-		B23A8F5C1D46149900872C44 /* bg-splase-screen-.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5A1D46149900872C44 /* bg-splase-screen-.png */; };
-		B23A8F5D1D46149900872C44 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5B1D46149900872C44 /* logo.png */; };
 		B23A8F611D4635BC00872C44 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5E1D4635BC00872C44 /* camera.png */; };
 		B23A8F621D4635BC00872C44 /* cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F5F1D4635BC00872C44 /* cancel.png */; };
 		B23A8F631D4635BC00872C44 /* gallary.png in Resources */ = {isa = PBXBuildFile; fileRef = B23A8F601D4635BC00872C44 /* gallary.png */; };
+		B24C71551D48BE2D0096DF06 /* send.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71541D48BE2D0096DF06 /* send.png */; };
+		B24C71581D48BE560096DF06 /* bubble_left.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71561D48BE560096DF06 /* bubble_left.png */; };
+		B24C71591D48BE560096DF06 /* bubble_right.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71571D48BE560096DF06 /* bubble_right.png */; };
+		B24C715C1D48C6E50096DF06 /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24C715B1D48C6E50096DF06 /* MessageView.m */; };
+		B24C715F1D48C8610096DF06 /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = B24C715E1D48C8610096DF06 /* MessageData.m */; };
+		B24C71621D48EE100096DF06 /* bubble-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71601D48EE100096DF06 /* bubble-left@2x.png */; };
+		B24C71631D48EE100096DF06 /* bubble-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71611D48EE100096DF06 /* bubble-right@2x.png */; };
+		B24C71651D48F1A70096DF06 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71641D48F1A70096DF06 /* logo.png */; };
+		B24C71671D48F1C50096DF06 /* splash-screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71661D48F1C50096DF06 /* splash-screen.png */; };
 		B26005F81D47339300C780A1 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005F71D47339300C780A1 /* Channel.m */; };
 		B26005FB1D4733A600C780A1 /* ChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005FA1D4733A600C780A1 /* ChannelManager.m */; };
 		B26005FE1D474E3E00C780A1 /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005FD1D474E3E00C780A1 /* ChatVC.m */; };
@@ -41,7 +48,7 @@
 
 /* Begin PBXFileReference section */
 		3159522036DB1F5E9E1BBFD1 /* Pods-WTNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WTNotification.release.xcconfig"; path = "Pods/Target Support Files/Pods-WTNotification/Pods-WTNotification.release.xcconfig"; sourceTree = "<group>"; };
-		B20CA27A1D37A4AD00CE3707 /* SILM-Alert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SILM-Alert.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B20CA27A1D37A4AD00CE3707 /* SocialEyeZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialEyeZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B20CA27E1D37A4AD00CE3707 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B20CA2801D37A4AD00CE3707 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B20CA2811D37A4AD00CE3707 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -67,11 +74,20 @@
 		B234412A1D38CEBB001DF5D7 /* FileHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileHandler.m; sourceTree = "<group>"; };
 		B23A8F571D45EF7A00872C44 /* DetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVC.h; sourceTree = "<group>"; };
 		B23A8F581D45EF7A00872C44 /* DetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVC.m; sourceTree = "<group>"; };
-		B23A8F5A1D46149900872C44 /* bg-splase-screen-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-splase-screen-.png"; sourceTree = "<group>"; };
-		B23A8F5B1D46149900872C44 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		B23A8F5E1D4635BC00872C44 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		B23A8F5F1D4635BC00872C44 /* cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancel.png; sourceTree = "<group>"; };
 		B23A8F601D4635BC00872C44 /* gallary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gallary.png; sourceTree = "<group>"; };
+		B24C71541D48BE2D0096DF06 /* send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send.png; sourceTree = "<group>"; };
+		B24C71561D48BE560096DF06 /* bubble_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble_left.png; sourceTree = "<group>"; };
+		B24C71571D48BE560096DF06 /* bubble_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble_right.png; sourceTree = "<group>"; };
+		B24C715A1D48C6E50096DF06 /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
+		B24C715B1D48C6E50096DF06 /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
+		B24C715D1D48C8610096DF06 /* MessageData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageData.h; sourceTree = "<group>"; };
+		B24C715E1D48C8610096DF06 /* MessageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageData.m; sourceTree = "<group>"; };
+		B24C71601D48EE100096DF06 /* bubble-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-left@2x.png"; sourceTree = "<group>"; };
+		B24C71611D48EE100096DF06 /* bubble-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-right@2x.png"; sourceTree = "<group>"; };
+		B24C71641D48F1A70096DF06 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		B24C71661D48F1C50096DF06 /* splash-screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen.png"; sourceTree = "<group>"; };
 		B26005F61D47339300C780A1 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		B26005F71D47339300C780A1 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		B26005F91D4733A600C780A1 /* ChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelManager.h; sourceTree = "<group>"; };
@@ -119,7 +135,7 @@
 		B20CA27B1D37A4AD00CE3707 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B20CA27A1D37A4AD00CE3707 /* SILM-Alert.app */,
+				B20CA27A1D37A4AD00CE3707 /* SocialEyeZ.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,6 +189,8 @@
 		B20CA29E1D37AB9D00CE3707 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B24C715D1D48C8610096DF06 /* MessageData.h */,
+				B24C715E1D48C8610096DF06 /* MessageData.m */,
 				B26005F61D47339300C780A1 /* Channel.h */,
 				B26005F71D47339300C780A1 /* Channel.m */,
 				B20CA29F1D37ABED00CE3707 /* User.h */,
@@ -202,6 +220,8 @@
 		B234411F1D389D35001DF5D7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B24C715A1D48C6E50096DF06 /* MessageView.h */,
+				B24C715B1D48C6E50096DF06 /* MessageView.m */,
 				B23441201D389D6A001DF5D7 /* StatusTVC.h */,
 				B23441211D389D6A001DF5D7 /* StatusTVC.m */,
 				B2DCB5B41D477CAB00F9E24A /* SelectTVC.h */,
@@ -213,11 +233,16 @@
 		B23441261D38AFC4001DF5D7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B24C71661D48F1C50096DF06 /* splash-screen.png */,
+				B24C71641D48F1A70096DF06 /* logo.png */,
+				B24C71601D48EE100096DF06 /* bubble-left@2x.png */,
+				B24C71611D48EE100096DF06 /* bubble-right@2x.png */,
+				B24C71561D48BE560096DF06 /* bubble_left.png */,
+				B24C71571D48BE560096DF06 /* bubble_right.png */,
+				B24C71541D48BE2D0096DF06 /* send.png */,
 				B23A8F5E1D4635BC00872C44 /* camera.png */,
 				B23A8F5F1D4635BC00872C44 /* cancel.png */,
 				B23A8F601D4635BC00872C44 /* gallary.png */,
-				B23A8F5A1D46149900872C44 /* bg-splase-screen-.png */,
-				B23A8F5B1D46149900872C44 /* logo.png */,
 				B2DCB50B1D424F6F001B153B /* no-profile.png */,
 				B2DCB5071D42442C001B153B /* back icon.png */,
 				B2DCB5081D42442C001B153B /* Edit icon.png */,
@@ -272,7 +297,7 @@
 			);
 			name = WTNotification;
 			productName = WTNotification;
-			productReference = B20CA27A1D37A4AD00CE3707 /* SILM-Alert.app */;
+			productReference = B20CA27A1D37A4AD00CE3707 /* SocialEyeZ.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -313,17 +338,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B24C71581D48BE560096DF06 /* bubble_left.png in Resources */,
 				B26006051D47737600C780A1 /* Abel-Regular.ttf in Resources */,
-				B23A8F5C1D46149900872C44 /* bg-splase-screen-.png in Resources */,
-				B23A8F5D1D46149900872C44 /* logo.png in Resources */,
+				B24C71621D48EE100096DF06 /* bubble-left@2x.png in Resources */,
+				B24C71631D48EE100096DF06 /* bubble-right@2x.png in Resources */,
+				B24C71651D48F1A70096DF06 /* logo.png in Resources */,
 				B2DCB50C1D424F6F001B153B /* no-profile.png in Resources */,
+				B24C71671D48F1C50096DF06 /* splash-screen.png in Resources */,
 				B23A8F621D4635BC00872C44 /* cancel.png in Resources */,
+				B24C71551D48BE2D0096DF06 /* send.png in Resources */,
 				B23A8F611D4635BC00872C44 /* camera.png in Resources */,
 				B23A8F631D4635BC00872C44 /* gallary.png in Resources */,
 				B2DCB50A1D42442C001B153B /* Edit icon.png in Resources */,
 				B20CA28D1D37A4AD00CE3707 /* LaunchScreen.storyboard in Resources */,
 				B20CA28A1D37A4AD00CE3707 /* Assets.xcassets in Resources */,
 				B20CA2881D37A4AD00CE3707 /* Main.storyboard in Resources */,
+				B24C71591D48BE560096DF06 /* bubble_right.png in Resources */,
 				B2DCB5091D42442C001B153B /* back icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,10 +413,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B24C715C1D48C6E50096DF06 /* MessageView.m in Sources */,
 				B2DCB5051D423B80001B153B /* ContainerVC.m in Sources */,
 				B26005FB1D4733A600C780A1 /* ChannelManager.m in Sources */,
 				B26005F81D47339300C780A1 /* Channel.m in Sources */,
 				B26005FE1D474E3E00C780A1 /* ChatVC.m in Sources */,
+				B24C715F1D48C8610096DF06 /* MessageData.m in Sources */,
 				B20CA2AB1D37AD5700CE3707 /* ConnectionHandler.m in Sources */,
 				B23441221D389D6A001DF5D7 /* StatusTVC.m in Sources */,
 				B2DCB5B61D477CAB00F9E24A /* SelectTVC.m in Sources */,
@@ -526,7 +558,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.SILMAlert;
-				PRODUCT_NAME = "SILM-Alert";
+				PRODUCT_NAME = SocialEyeZ;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -544,7 +576,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.SILMAlert;
-				PRODUCT_NAME = "SILM-Alert";
+				PRODUCT_NAME = SocialEyeZ;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;

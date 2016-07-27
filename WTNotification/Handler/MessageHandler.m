@@ -13,6 +13,7 @@
 @implementation MessageHandler
 
 +(MessageHandler*)sharedHandler{
+    
     static MessageHandler *mySharedHandler = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -21,6 +22,26 @@
     });
     
     return mySharedHandler;
+}
+
+
+-(instancetype)init{
+    if(self = [super init]){
+        
+        self.statusArray = @[
+                             @"Ping Pong",
+                             @"Chess",
+                             @"Lunch",
+                             @"Coffee",
+                             @"Pool",
+                             @"Football",
+                             @"Board Games",
+                             @"Hangout",
+                             @"Walk",
+                             @"Run"
+                             ];
+    }
+    return  self;
 }
 
 #pragma mark - Helpers
@@ -66,6 +87,21 @@
 #endif
 }
 
+-(BOOL)isValidIPAddress:(NSString *)ipAddress{
+    
+    const char *utf8 = [ipAddress UTF8String];
+    int success;
+    
+    struct in_addr dst;
+    success = inet_pton(AF_INET, utf8, &dst);
+    if (success != 1) {
+        struct in6_addr dst6;
+        success = inet_pton(AF_INET6, utf8, &dst6);
+    }
+    
+    return success == 1;
+}
+
 
 
 
@@ -97,6 +133,7 @@
                                       JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
                                       JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
                                       JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus,
+                                      JSON_KEY_PROFILE_STATUS_CHANNEL: @([UserHandler sharedInstance].mySelf.statusChannel),
                                       JSON_KEY_PROFILE_IMAGE: base64Image
                                       };
     
@@ -135,6 +172,7 @@
                                       JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
                                       JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
                                       JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus,
+                                      JSON_KEY_PROFILE_STATUS_CHANNEL: @([UserHandler sharedInstance].mySelf.statusChannel),
                                       JSON_KEY_PROFILE_IMAGE: base64Image
                                       };
     
@@ -173,6 +211,7 @@
                                       JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
                                       JSON_KEY_PROFILE_NAME: [UserHandler sharedInstance].mySelf.profileName,
                                       JSON_KEY_PROFILE_STATUS: [UserHandler sharedInstance].mySelf.profileStatus,
+                                      JSON_KEY_PROFILE_STATUS_CHANNEL: @([UserHandler sharedInstance].mySelf.statusChannel),
                                       JSON_KEY_PROFILE_IMAGE: base64Image
                                       };
     
@@ -204,11 +243,17 @@
 
 #pragma mark - TYPE_MESSAGE
 
--(NSString *)createChatMessageWithChannelID:(int) channelID deviceName:(NSString *)deviceNameForChannel chatmessage:(NSString *)message{
+-(NSString *)createChatMessageWithChannelID:(int)channelID deviceName:(NSString *)deviceNameForChannel chatmessage:(NSString *)message{
     
-    NSDictionary * postDictionary;
-//    NSDictionary * postDictionary = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_UUID_KEY_FORUSERDEFAULTS], deviceNameForChannel, [self getIPAddress ],[NSNumber numberWithInt:TYPE_MESSAGE], [NSNumber numberWithInt:channelID], message,nil]
-//                                                                forKeys:[NSArray arrayWithObjects:JSON_KEY_DEVICE_ID, JSON_KEY_DEVICE_NAME,JSON_KEY_IP_ADDRESS, JSON_KEY_TYPE, JSON_KEY_CHANNEL,  JSON_KEY_MESSAGE,nil]];
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_MESSAGE],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_CHANNEL:@(channelID),
+                                      JSON_KEY_MESSAGE:message
+                                      };
     
     NSError * error = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];

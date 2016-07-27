@@ -14,6 +14,8 @@
 @property (nonatomic, strong) Channel *currentChannel;
 
 @property (nonatomic, assign) int currentChannelID;
+@property (nonatomic, assign) BOOL isChannelOpen;
+
 @property (nonatomic, assign) BOOL isHost;
 @property (nonatomic, strong) User *hostUser;
 
