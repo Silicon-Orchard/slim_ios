@@ -58,6 +58,12 @@
         case 1:
             vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileVCID"];
             break;
+        case 2:
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ChatRoomVCID"];
+            break;
+        default:
+            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"MainVCID"];
+            break;
     }
     return vc;
 }

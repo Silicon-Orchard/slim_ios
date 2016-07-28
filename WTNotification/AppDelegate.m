@@ -280,19 +280,7 @@
 
 }
 
--(void)sendChanneljoiningMessage{
-    
-    int channelID = [UserHandler sharedInstance].mySelf.statusChannel;
-    NSString *channelJoinNotificationMessage = [[MessageHandler sharedHandler] joiningChannelMessageOf:channelID];
-    
-    [[ConnectionHandler sharedHandler] enableBroadCast];
-    
-    NSArray *memberOfSameStatusIP = [[UserHandler sharedInstance] getAllUserIPsOfSameStatus];
-    for (NSString *ipAddress in memberOfSameStatusIP) {
-        
-        [[ConnectionHandler sharedHandler] sendMessage:channelJoinNotificationMessage toIPAddress:ipAddress];
-    }
-}
+
 
 -(void)showAlertForJoiningChannelWith:(User *)newUser{
     
@@ -309,9 +297,7 @@
         if(newUser.statusChannel != -1 && newUser.statusChannel < statusAry.count && newUser.statusChannel == [UserHandler sharedInstance].mySelf.statusChannel){
             //show a action to join chat
             
-            NSString * statusStr = statusAry[newUser.statusChannel];
-            
-            NSString *message =  [NSString stringWithFormat:@"%@ & others have the same \"%@\" status as yours. Would you like to join them?", newUser.profileName, statusStr];
+            NSString *message =  [NSString stringWithFormat:@"Similar status found in neares people. Would you like to chat them?"];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Chatting Request"
                                                             message: message
@@ -351,8 +337,12 @@
             [ChannelManager sharedInstance].isChannelOpen = YES;
             
             //send then notification
-            [self performSelector:@selector(sendChanneljoiningMessage) withObject:nil afterDelay:3.0];
-            //[self sendChanneljoiningMessage];
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                
+                [[MessageHandler sharedHandler] sendChanneljoiningMessageOf:channelID];
+            });
+
             
             //navigate to chatview controller
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

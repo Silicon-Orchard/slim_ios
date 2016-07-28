@@ -25,6 +25,7 @@
 
 
 #pragma mark - Extra Property
+@property (nonatomic, strong) NSArray *statusImageArray;
 @property (nonatomic, strong) NSArray *statusArray;
 
 
@@ -52,5 +53,11 @@
 -(NSString *)leftApplicationMessage;
 
 -(NSArray *)jsonStringArrayWithFile:(NSString *)fileName OfType:(int)type;
+
+
+
+#pragma mark - Send
+-(void)sendChanneljoiningMessageOf:(int)channelID;
+
 
 @end

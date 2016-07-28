@@ -34,6 +34,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [ChannelManager sharedInstance].isChannelOpen = YES;
+    
     messageDataList = [[NSMutableArray alloc] init];
     chatRoomMemberList = [[NSMutableArray alloc] init];
     
@@ -51,18 +53,7 @@
     aTap.cancelsTouchesInView = NO;
     aTap.delegate = self;
     [self.view addGestureRecognizer:aTap];
-    
-    
-    BOOL chatOpen = [ChannelManager sharedInstance].isChannelOpen;
-    
-    if(chatOpen){
-        
-        NSLog(@"chatOpen");
-    }else{
-        NSLog(@"chat not open");
-    }
-    
-    
+
     
 }
 
@@ -114,7 +105,11 @@
     self.memberTextView.editable = NO;
     self.sendBtn.enabled = NO;
     
-    self.channelNameLabel.text = [UserHandler sharedInstance].mySelf.profileStatus;
+    NSArray *statusArray = [MessageHandler sharedHandler].statusArray;
+    if(self.currentActiveChannel.channelID < statusArray.count){
+        self.channelNameLabel.text = statusArray[self.currentActiveChannel.channelID];
+    }
+    
     
     [self updateMemberList];
 }
@@ -280,22 +275,22 @@
         //[self.currentActiveChannel setActive:YES toUser:confirmedMember];
         
         
-        NSArray *channelmembers  = [jsonDict objectForKey:JSON_KEY_CHANNEL_MEMBERS];
-        
-        for (int i = 0; i < channelmembers.count; i++) {
-            
-            NSDictionary *channelMember = [channelmembers objectAtIndex:i];
-            
-            User *member = [[User alloc] initWithIP:[channelMember objectForKey:JSON_KEY_IP_ADDRESS]
-                                           deviceID:[channelMember objectForKey:JSON_KEY_DEVICE_ID]
-                                               name:[channelMember objectForKey:JSON_KEY_DEVICE_NAME]
-                                             status:@""
-                                      statusChannel:requestedChannelID
-                                          imageName:@""
-                                          andActive:YES];
-            
-            [self.currentActiveChannel addMember:member];
-        }
+//        NSArray *channelmembers  = [jsonDict objectForKey:JSON_KEY_CHANNEL_MEMBERS];
+//        
+//        for (int i = 0; i < channelmembers.count; i++) {
+//            
+//            NSDictionary *channelMember = [channelmembers objectAtIndex:i];
+//            
+//            User *member = [[User alloc] initWithIP:[channelMember objectForKey:JSON_KEY_IP_ADDRESS]
+//                                           deviceID:[channelMember objectForKey:JSON_KEY_DEVICE_ID]
+//                                               name:[channelMember objectForKey:JSON_KEY_DEVICE_NAME]
+//                                             status:@""
+//                                      statusChannel:requestedChannelID
+//                                          imageName:@""
+//                                          andActive:YES];
+//            
+//            [self.currentActiveChannel addMember:member];
+//        }
         
         
         [self updateMemberList];

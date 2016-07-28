@@ -35,7 +35,9 @@
     //TableView
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView setBackgroundColor:[[UIColor clearColor] colorWithAlphaComponent:0.2f]];
+    //[self.tableView setBackgroundColor:[[UIColor clearColor] colorWithAlphaComponent:0.2f]];
+    self.tableView.separatorColor = [UIColor clearColor];
+    
     
 
 
@@ -227,7 +229,7 @@ static NSString * CellID = @"StatusCellID";
     //[self presentViewController: animated:YES completion:nil];
     
     //Change the selected background view of the cell.
-    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - DetailVCBackBtnPressDelegate

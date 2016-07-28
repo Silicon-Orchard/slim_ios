@@ -135,10 +135,10 @@ typedef enum ActiveField : NSUInteger {
     self.profileImageView.layer.borderColor = defaultColor.CGColor;
     
     
-    self.popupView.layer.cornerRadius = 5;
+    self.popupView.layer.cornerRadius = 20;
     self.popupView.clipsToBounds = YES;
     
-    self.statusPopupView.layer.cornerRadius = 5;
+    self.statusPopupView.layer.cornerRadius = 20;
     self.statusPopupView.clipsToBounds = YES;
     
     

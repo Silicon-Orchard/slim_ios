@@ -110,11 +110,12 @@
 
 -(void)removeMemberOfIP:(NSString *)ip andDeviceID:(NSString *)deviceID {
     
-    for (User * member in self.memberList) {
+    for (int indx = 0; indx< self.memberList.count; indx++) {
+        User *member = self.memberList[indx];
         
         if([member.deviceIP isEqualToString:ip] && [member.deviceID isEqualToString:deviceID] ){
             
-            [self.memberList removeObject:member];
+            [self.memberList removeObjectAtIndex:indx];
         }
     }
 }

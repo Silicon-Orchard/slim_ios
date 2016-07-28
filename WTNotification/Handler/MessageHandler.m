@@ -40,6 +40,19 @@
                              @"Walk",
                              @"Run"
                              ];
+        
+        self.statusImageArray = @[
+                                  @"Ping Pong",
+                                  @"Chess",
+                                  @"Lunch",
+                                  @"Coffee",
+                                  @"Pool",
+                                  @"Football",
+                                  @"Board Games",
+                                  @"Hangout",
+                                  @"Walk",
+                                  @"Run"
+                                  ];
     }
     return  self;
 }
@@ -282,23 +295,23 @@
 -(NSString *)joiningChannelConfirmationMessageOf:(int)channelID{
 
     
-    Channel * currentChannel = [[ChannelManager sharedInstance] currentChannel];
-    NSArray *channelMemberUsers = [currentChannel getMembers];
-    
-    
-    NSMutableArray *channelMembers = [[NSMutableArray alloc] init];
-    for (User *member in channelMemberUsers) {
-        
-        if(member.isActive){
-            
-            NSDictionary * channelMember = @{
-                                              JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
-                                              JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
-                                              JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
-                                              };
-            [channelMembers addObject:channelMember];
-        }
-    }
+//    Channel * currentChannel = [[ChannelManager sharedInstance] currentChannel];
+//    NSArray *channelMemberUsers = [currentChannel getMembers];
+//    
+//    
+//    NSMutableArray *channelMembers = [[NSMutableArray alloc] init];
+//    for (User *member in channelMemberUsers) {
+//        
+//        if(member.isActive){
+//            
+//            NSDictionary * channelMember = @{
+//                                              JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+//                                              JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+//                                              JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+//                                              };
+//            [channelMembers addObject:channelMember];
+//        }
+//    }
     
     
     NSDictionary * postDictionary = @{
@@ -306,8 +319,7 @@
                                       JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
                                       JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
                                       JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
-                                      JSON_KEY_CHANNEL:@(channelID),
-                                      JSON_KEY_CHANNEL_MEMBERS:channelMembers
+                                      JSON_KEY_CHANNEL:@(channelID)
                                       };
     
     NSError * error = nil;
@@ -369,6 +381,22 @@
     return JSONStringArray;
 }
 
+
+#pragma mark - Send Message
+
+
+-(void)sendChanneljoiningMessageOf:(int)channelID{
+    
+    NSString *channelJoinNotificationMessage = [self joiningChannelMessageOf:channelID];
+    
+    [[ConnectionHandler sharedHandler] enableBroadCast];
+    
+    NSArray *allIPs = [[UserHandler sharedInstance] getAllUserIPs];
+    for (NSString *ipAddress in allIPs) {
+        
+        [[ConnectionHandler sharedHandler] sendMessage:channelJoinNotificationMessage toIPAddress:ipAddress];
+    }
+}
 
 
 
