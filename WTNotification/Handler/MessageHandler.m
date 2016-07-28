@@ -54,7 +54,7 @@
     
     //Simulator
     
-    return @"192.168.1.146";
+    return @"192.168.2.129";
     
 #else
     
@@ -243,8 +243,7 @@
 
 #pragma mark - TYPE_MESSAGE
 
--(NSString *)createChatMessageWithChannelID:(int)channelID deviceName:(NSString *)deviceNameForChannel chatmessage:(NSString *)message{
-    
+-(NSString *)createChatMessageWithChannelID:(int)channelID chatmessage:(NSString *)message{
     
     NSDictionary * postDictionary = @{
                                       JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_MESSAGE],
@@ -260,6 +259,79 @@
     NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     return resultAsString;
     
+}
+
+-(NSString *)joiningChannelMessageOf:(int) channelID{
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_JOIN_CHANNEL],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_CHANNEL:@(channelID)
+                                      };
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
+    
+}
+
+
+-(NSString *)joiningChannelConfirmationMessageOf:(int)channelID{
+
+    
+    Channel * currentChannel = [[ChannelManager sharedInstance] currentChannel];
+    NSArray *channelMemberUsers = [currentChannel getMembers];
+    
+    
+    NSMutableArray *channelMembers = [[NSMutableArray alloc] init];
+    for (User *member in channelMemberUsers) {
+        
+        if(member.isActive){
+            
+            NSDictionary * channelMember = @{
+                                              JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                              JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                              JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                              };
+            [channelMembers addObject:channelMember];
+        }
+    }
+    
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_JOIN_CHANNEL_CONFIRM],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_CHANNEL:@(channelID),
+                                      JSON_KEY_CHANNEL_MEMBERS:channelMembers
+                                      };
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
+}
+
+
+-(NSString *)leaveChannelMessageOf:(int)channelID{
+    
+    NSDictionary * postDictionary = @{
+                                      JSON_KEY_TYPE: [NSNumber numberWithInt:TYPE_LEFT_CHANNEL],
+                                      JSON_KEY_DEVICE_ID : [UserHandler sharedInstance].mySelf.deviceID,
+                                      JSON_KEY_IP_ADDRESS : [UserHandler sharedInstance].mySelf.deviceIP,
+                                      JSON_KEY_DEVICE_NAME: [UserHandler sharedInstance].mySelf.profileName,
+                                      JSON_KEY_CHANNEL:@(channelID)
+                                      };
+
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:postDictionary options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *resultAsString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return resultAsString;
 }
 
 

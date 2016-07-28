@@ -280,16 +280,31 @@
 
 }
 
+-(void)sendChanneljoiningMessage{
+    
+    int channelID = [UserHandler sharedInstance].mySelf.statusChannel;
+    NSString *channelJoinNotificationMessage = [[MessageHandler sharedHandler] joiningChannelMessageOf:channelID];
+    
+    [[ConnectionHandler sharedHandler] enableBroadCast];
+    
+    NSArray *memberOfSameStatusIP = [[UserHandler sharedInstance] getAllUserIPsOfSameStatus];
+    for (NSString *ipAddress in memberOfSameStatusIP) {
+        
+        [[ConnectionHandler sharedHandler] sendMessage:channelJoinNotificationMessage toIPAddress:ipAddress];
+    }
+}
+
 -(void)showAlertForJoiningChannelWith:(User *)newUser{
     
+    BOOL channelOpen = [ChannelManager sharedInstance].isChannelOpen;
     
-    if(![ChannelManager sharedInstance].isChannelOpen){
+    if(!channelOpen && !self.alertShowing){
         
         NSArray *statusAry = [MessageHandler sharedHandler].statusArray;
         
-        int statusChannel = newUser.statusChannel;
-        int myStatusChannelID = [UserHandler sharedInstance].mySelf.statusChannel;
-        int statusAryCount = statusAry.count;
+        //int statusChannel = newUser.statusChannel;
+        //int myStatusChannelID = [UserHandler sharedInstance].mySelf.statusChannel;
+        //int statusAryCount = statusAry.count;
         
         if(newUser.statusChannel != -1 && newUser.statusChannel < statusAry.count && newUser.statusChannel == [UserHandler sharedInstance].mySelf.statusChannel){
             //show a action to join chat
@@ -306,6 +321,7 @@
             
             alert.tag = 55;
             [alert show];
+            self.alertShowing = YES;
         }
     }
 
@@ -319,6 +335,7 @@
     
     
     if(alertView.tag == 55){
+        self.alertShowing = NO;
         
         if(buttonIndex == 0){
             
@@ -330,20 +347,18 @@
             int channelID = [UserHandler sharedInstance].mySelf.statusChannel;
             Channel *channel = [[Channel alloc] initChannelWithID:channelID];
             
-            NSArray *memberOfSameStatus = [[UserHandler sharedInstance] getAllUsersOfSameStatus];
-            for (User *member in memberOfSameStatus) {
-                [channel addMember:member];
-            }
-            
             [[ChannelManager sharedInstance] setCurrentChannel:channel];
             [ChannelManager sharedInstance].isChannelOpen = YES;
+            
+            //send then notification
+            [self performSelector:@selector(sendChanneljoiningMessage) withObject:nil afterDelay:3.0];
+            //[self sendChanneljoiningMessage];
             
             //navigate to chatview controller
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ChatVC *chatVC = (ChatVC *)[storyboard instantiateViewControllerWithIdentifier:@"ChatVCID"];
-
             
-            chatVC.currentActiveChannel = [[ChannelManager sharedInstance] currentChannel];
+            chatVC.currentActiveChannel = [ChannelManager sharedInstance].currentChannel;
             
             UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
             [navController pushViewController:chatVC animated:YES];

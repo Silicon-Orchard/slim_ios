@@ -43,7 +43,11 @@
 -(NSString *)postMessage;
 
 
--(NSString *)createChatMessageWithChannelID:(int) channelID deviceName:(NSString *)deviceNameForChannel chatmessage:(NSString *)message;
+-(NSString *)createChatMessageWithChannelID:(int)channelID chatmessage:(NSString *)message;
+-(NSString *)joiningChannelMessageOf:(int) channelID;
+-(NSString *)joiningChannelConfirmationMessageOf:(int)channelID;
+-(NSString *)leaveChannelMessageOf:(int)channelID;
+
 
 -(NSString *)leftApplicationMessage;
 

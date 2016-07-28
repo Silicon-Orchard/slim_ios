@@ -36,6 +36,7 @@
         // Do any other initialisation stuff here
         self.channelList = [NSMutableArray new];
         self.acceptedOponentUsers = [NSMutableArray new];
+        self.isChannelOpen = NO;
 
     }
     

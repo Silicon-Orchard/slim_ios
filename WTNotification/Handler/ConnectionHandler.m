@@ -133,8 +133,6 @@
     
     int messageType = [(NSNumber*)[jsonDict objectForKey:JSON_KEY_TYPE] intValue];
     
-    
-    
     switch (messageType) {
             
         case TYPE_REQUEST_INFO:
@@ -151,6 +149,17 @@
             
         case TYPE_MESSAGE:
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_CHAT_MESSAGE_RECEIVED object:nil userInfo:userInfo];
+            break;
+            
+        case TYPE_JOIN_CHANNEL:
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_CHANNEL_JOINED object:nil userInfo:userInfo];
+            break;
+        case TYPE_JOIN_CHANNEL_CONFIRM:
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_CHANNEL_JOIN_CONFIRMED object:nil userInfo:userInfo];
+            break;
+        
+        case TYPE_LEFT_CHANNEL:
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATIONKEY_CHANNEL_LEFT object:nil userInfo:userInfo];
             break;
             
         default:

@@ -77,7 +77,7 @@
     NSMutableArray * ipArray = [[NSMutableArray alloc] init];
     
     for (User *user in self.usersArray) {
-        if(user.statusChannel != -1 && [user.deviceIP isEqualToString:self.mySelf.deviceIP]){
+        if(user.statusChannel != -1 && user.statusChannel  == self.mySelf.statusChannel){
             
             [ipArray addObject:user.deviceIP];
         }

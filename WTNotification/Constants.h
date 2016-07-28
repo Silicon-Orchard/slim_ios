@@ -149,6 +149,7 @@
 #define NOTIFICATIONKEY_CHAT_MESSAGE_RECEIVED @"ChatMessageReceivedNotification"
 
 #define NOTIFICATIONKEY_CHANNEL_JOINED @"JoinedChannelNotification"
+#define NOTIFICATIONKEY_CHANNEL_JOIN_CONFIRMED  @"JoinChannelConfirmedNotification"
 #define NOTIFICATIONKEY_CHANNEL_LEFT @"leftChannelNotification"
 
 
