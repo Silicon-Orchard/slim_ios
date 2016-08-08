@@ -80,8 +80,8 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
-    NSNumber *profileStatusChannel = [[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_KEY_STATUS_CHANNEL];
-    if ([profileStatusChannel isKindOfClass:[NSNull class]]){
+    NSNumber *profileStatusChannel = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:USERDEFAULTS_KEY_STATUS_CHANNEL];
+    if (profileStatusChannel  == nil){
         
         profileStatusChannel = @(-1);
         [[NSUserDefaults standardUserDefaults] setObject:profileStatusChannel forKey:USERDEFAULTS_KEY_STATUS_CHANNEL];

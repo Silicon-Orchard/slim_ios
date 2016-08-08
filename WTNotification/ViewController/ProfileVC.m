@@ -341,15 +341,17 @@ typedef enum ActiveField : NSUInteger {
                     
                     NSLog(@"Successfully finished.");
                     
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Successfully notification send."
-                                                                    message: @""
-                                                                   delegate: self
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
+                    NSString *message = @"Successfully Saved...";
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                                   message:message
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
                     
-                    alert.tag = 50;
-                    [alert show];
+                    [self presentViewController:alert animated:YES completion:nil];
                     
+                    int duration = 1; // duration in seconds
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                        [alert dismissViewControllerAnimated:YES completion:nil];
+                    });
                     
                 }
             }];

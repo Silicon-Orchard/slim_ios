@@ -31,8 +31,8 @@
 		B24C715F1D48C8610096DF06 /* MessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = B24C715E1D48C8610096DF06 /* MessageData.m */; };
 		B24C71621D48EE100096DF06 /* bubble-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71601D48EE100096DF06 /* bubble-left@2x.png */; };
 		B24C71631D48EE100096DF06 /* bubble-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71611D48EE100096DF06 /* bubble-right@2x.png */; };
-		B24C71651D48F1A70096DF06 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71641D48F1A70096DF06 /* logo.png */; };
-		B24C71671D48F1C50096DF06 /* splash-screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B24C71661D48F1C50096DF06 /* splash-screen.png */; };
+		B254FAFD1D58897C00EDB102 /* splase-screen.png in Resources */ = {isa = PBXBuildFile; fileRef = B254FAFB1D58897C00EDB102 /* splase-screen.png */; };
+		B254FAFE1D58897C00EDB102 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B254FAFC1D58897C00EDB102 /* logo.png */; };
 		B26005F81D47339300C780A1 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005F71D47339300C780A1 /* Channel.m */; };
 		B26005FB1D4733A600C780A1 /* ChannelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005FA1D4733A600C780A1 /* ChannelManager.m */; };
 		B26005FE1D474E3E00C780A1 /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B26005FD1D474E3E00C780A1 /* ChatVC.m */; };
@@ -98,8 +98,8 @@
 		B24C715E1D48C8610096DF06 /* MessageData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageData.m; sourceTree = "<group>"; };
 		B24C71601D48EE100096DF06 /* bubble-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-left@2x.png"; sourceTree = "<group>"; };
 		B24C71611D48EE100096DF06 /* bubble-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-right@2x.png"; sourceTree = "<group>"; };
-		B24C71641D48F1A70096DF06 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
-		B24C71661D48F1C50096DF06 /* splash-screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-screen.png"; sourceTree = "<group>"; };
+		B254FAFB1D58897C00EDB102 /* splase-screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "splase-screen.png"; path = "status icon/splase-screen.png"; sourceTree = "<group>"; };
+		B254FAFC1D58897C00EDB102 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = "status icon/logo.png"; sourceTree = "<group>"; };
 		B26005F61D47339300C780A1 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
 		B26005F71D47339300C780A1 /* Channel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Channel.m; sourceTree = "<group>"; };
 		B26005F91D4733A600C780A1 /* ChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelManager.h; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 			isa = PBXGroup;
 			children = (
 				B2A575C91D4A1AC2008B3156 /* status icon */,
-				B24C71661D48F1C50096DF06 /* splash-screen.png */,
-				B24C71641D48F1A70096DF06 /* logo.png */,
+				B254FAFB1D58897C00EDB102 /* splase-screen.png */,
+				B254FAFC1D58897C00EDB102 /* logo.png */,
 				B24C71601D48EE100096DF06 /* bubble-left@2x.png */,
 				B24C71611D48EE100096DF06 /* bubble-right@2x.png */,
 				B24C71561D48BE560096DF06 /* bubble_left.png */,
@@ -388,15 +388,14 @@
 			files = (
 				B2A575DD1D4A1AC2008B3156 /* Walk.png in Resources */,
 				B24C71581D48BE560096DF06 /* bubble_left.png in Resources */,
+				B254FAFE1D58897C00EDB102 /* logo.png in Resources */,
 				B26006051D47737600C780A1 /* Abel-Regular.ttf in Resources */,
 				B2A575DA1D4A1AC2008B3156 /* Ping Pong.png in Resources */,
 				B24C71621D48EE100096DF06 /* bubble-left@2x.png in Resources */,
 				B2A575D41D4A1AC2008B3156 /* Board Games.png in Resources */,
 				B24C71631D48EE100096DF06 /* bubble-right@2x.png in Resources */,
-				B24C71651D48F1A70096DF06 /* logo.png in Resources */,
 				B2A575DC1D4A1AC2008B3156 /* Run.png in Resources */,
 				B2DCB50C1D424F6F001B153B /* no-profile.png in Resources */,
-				B24C71671D48F1C50096DF06 /* splash-screen.png in Resources */,
 				B23A8F621D4635BC00872C44 /* cancel.png in Resources */,
 				B24C71551D48BE2D0096DF06 /* send.png in Resources */,
 				B23A8F611D4635BC00872C44 /* camera.png in Resources */,
@@ -409,6 +408,7 @@
 				B20CA28A1D37A4AD00CE3707 /* Assets.xcassets in Resources */,
 				B20CA2881D37A4AD00CE3707 /* Main.storyboard in Resources */,
 				B2A575D71D4A1AC2008B3156 /* Football.png in Resources */,
+				B254FAFD1D58897C00EDB102 /* splase-screen.png in Resources */,
 				B24C71591D48BE560096DF06 /* bubble_right.png in Resources */,
 				B2A575DB1D4A1AC2008B3156 /* Pool.png in Resources */,
 				B2DCB5091D42442C001B153B /* back icon.png in Resources */,
@@ -610,8 +610,8 @@
 			baseConfigurationReference = CA1C0C2909115AE12C46F1CF /* Pods-WTNotification.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Abdullah Al Mahmood (Z92ZJ7WG7F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Abdullah Al Mahmood (Z92ZJ7WG7F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WTNotification/WTNotification.pch;
 				INFOPLIST_FILE = WTNotification/Info.plist;
@@ -619,7 +619,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.SILMAlert;
 				PRODUCT_NAME = SocialEyeZ;
-				PROVISIONING_PROFILE = "c3508a6a-273f-4b55-92c9-c5c1f7d2bbd2";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -628,8 +628,8 @@
 			baseConfigurationReference = 3159522036DB1F5E9E1BBFD1 /* Pods-WTNotification.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Abdullah Al Mahmood (Z92ZJ7WG7F)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Abdullah Al Mahmood (Z92ZJ7WG7F)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WTNotification/WTNotification.pch;
 				INFOPLIST_FILE = WTNotification/Info.plist;
@@ -637,7 +637,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.siliconorchard.SILMAlert;
 				PRODUCT_NAME = SocialEyeZ;
-				PROVISIONING_PROFILE = "c3508a6a-273f-4b55-92c9-c5c1f7d2bbd2";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
