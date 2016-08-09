@@ -200,9 +200,10 @@
     NSData* receivedData = (NSData*)userInfo[@"receievedData"];
     NSDictionary *jsonDict = [NSJSONSerialization  JSONObjectWithData:receivedData options:0 error:nil];
     
+    int channelID = [(NSNumber *)[jsonDict objectForKey:JSON_KEY_CHANNEL] intValue];
     NSString *ipAddress = [jsonDict objectForKey:JSON_KEY_IP_ADDRESS];
     
-    if(jsonDict && ![ipAddress isEqualToString:[UserHandler sharedInstance].mySelf.deviceIP]){
+    if(self.currentActiveChannel.channelID == channelID && ![ipAddress isEqualToString:[UserHandler sharedInstance].mySelf.deviceIP]){
         
         NSString *senderName = [jsonDict objectForKey:JSON_KEY_DEVICE_NAME];
         
@@ -479,7 +480,9 @@
         self.sendBtn.enabled = NO;
     }
     
-    return YES;
+    return textField.text.length + (string.length - range.length) <= 512;
+    
+    //return YES;
 }
 
 #pragma mark - IPChangeNotifier

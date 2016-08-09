@@ -19,4 +19,8 @@
 - (IBAction)segmentSwitch:(UISegmentedControl *)sender;
 
 
+@property (weak, nonatomic) IBOutlet UIButton *refreshBtn;
+- (IBAction)tapOnRefreshBtn:(id)sender;
+
+
 @end

@@ -249,6 +249,8 @@ static NSString * CellID = @"StatusCellID";
 }
 
 
-
-
+- (IBAction)tapOnRefreshBtn:(id)sender {
+    
+    [[MessageHandler sharedHandler] sendSelfPresenceMessageToNetwork];
+}
 @end

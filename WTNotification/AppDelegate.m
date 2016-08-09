@@ -100,7 +100,8 @@
     
 
     //Notify Self Presence
-    [self notifySelfPresenceToNetwork];
+    //[self notifySelfPresenceToNetwork];
+    [[MessageHandler sharedHandler] sendSelfPresenceMessageToNetwork];
     
     //NSNotificationCenter
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -148,7 +149,8 @@
             [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
         }
         [UserHandler sharedInstance].mySelf.deviceIP = ipAddress;
-        [self notifySelfPresenceToNetwork];
+        //[self notifySelfPresenceToNetwork];
+        [[MessageHandler sharedHandler] sendSelfPresenceMessageToNetwork];
     }
 }
 
@@ -297,7 +299,7 @@
         if(newUser.statusChannel != -1 && newUser.statusChannel < statusAry.count && newUser.statusChannel == [UserHandler sharedInstance].mySelf.statusChannel){
             //show a action to join chat
             
-            NSString *message =  [NSString stringWithFormat:@"Similar status found in neares people. Would you like to chat them?"];
+            NSString *message =  [NSString stringWithFormat:@"Similar status found in nearest people. Would you like to chat them?"];
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Chatting Request"
                                                             message: message

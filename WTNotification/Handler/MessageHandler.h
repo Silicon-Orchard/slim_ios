@@ -58,6 +58,6 @@
 
 #pragma mark - Send
 -(void)sendChanneljoiningMessageOf:(int)channelID;
-
+-(void)sendSelfPresenceMessageToNetwork;
 
 @end

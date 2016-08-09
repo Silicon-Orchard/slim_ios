@@ -181,7 +181,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WfC-Er-GK3">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StatusCellID" rowHeight="80" id="Pto-Ix-DvE" customClass="StatusTVC">
@@ -248,17 +248,45 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cnW-Jf-o1D">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVj-Kt-0Co">
+                                        <rect key="frame" x="75" y="6" width="170" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="170" id="Ivn-SR-icN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                        <state key="normal" title="Refresh List">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnRefreshBtn:" destination="wIK-gp-m2i" eventType="touchUpInside" id="caL-DU-6FP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="NVj-Kt-0Co" firstAttribute="centerX" secondItem="cnW-Jf-o1D" secondAttribute="centerX" id="Yv8-RJ-phL"/>
+                                    <constraint firstItem="NVj-Kt-0Co" firstAttribute="centerY" secondItem="cnW-Jf-o1D" secondAttribute="centerY" id="lWe-I8-jOb"/>
+                                    <constraint firstAttribute="height" constant="44" id="oeT-PR-x1F"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cnW-Jf-o1D" secondAttribute="trailing" id="9Yp-VT-AbD"/>
                             <constraint firstItem="WfC-Er-GK3" firstAttribute="leading" secondItem="Wpo-Nj-QSg" secondAttribute="leading" id="CrN-Hm-uj6"/>
                             <constraint firstItem="WfC-Er-GK3" firstAttribute="top" secondItem="Wpo-Nj-QSg" secondAttribute="topMargin" id="NIz-FS-PrJ"/>
+                            <constraint firstItem="cnW-Jf-o1D" firstAttribute="leading" secondItem="Wpo-Nj-QSg" secondAttribute="leading" id="QA2-Vx-hK9"/>
+                            <constraint firstItem="cnW-Jf-o1D" firstAttribute="top" secondItem="WfC-Er-GK3" secondAttribute="bottom" id="Sq4-yK-yvG"/>
                             <constraint firstAttribute="trailing" secondItem="WfC-Er-GK3" secondAttribute="trailing" id="kWc-y8-TO9"/>
-                            <constraint firstItem="Cfp-PE-lWa" firstAttribute="top" secondItem="WfC-Er-GK3" secondAttribute="bottom" id="wht-QI-fEC"/>
+                            <constraint firstAttribute="bottom" secondItem="cnW-Jf-o1D" secondAttribute="bottom" id="roI-1P-PlK"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="refreshBtn" destination="NVj-Kt-0Co" id="6ce-rT-3yb"/>
                         <outlet property="tableView" destination="WfC-Er-GK3" id="O8y-qs-fPn"/>
                     </connections>
                 </viewController>

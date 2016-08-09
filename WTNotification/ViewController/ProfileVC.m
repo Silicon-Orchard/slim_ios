@@ -37,6 +37,8 @@ typedef enum ActiveField : NSUInteger {
     NSArray *statusAry;
     
     UILabel *placeholderLabel;
+    
+    BOOL isHUDShowing;
 }
 
 @end
@@ -339,28 +341,29 @@ typedef enum ActiveField : NSUInteger {
                 
                 if(finished){
                     
-                    NSLog(@"Successfully finished.");
+                    //[SVProgressHUD dismiss];
+
+                    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+                    [SVProgressHUD setBackgroundColor: [UIColor lightGrayColor]];
                     
-                    NSString *message = @"Successfully Saved...";
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
-                                                                                   message:message
-                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    [SVProgressHUD showSuccessWithStatus:@"Successfully Saved..."];
                     
-                    [self presentViewController:alert animated:YES completion:nil];
-                    
-                    int duration = 1; // duration in seconds
+                    int duration = 1;
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                        [alert dismissViewControllerAnimated:YES completion:nil];
+                        
+                        [SVProgressHUD dismiss];
+                        [self checkForSimilarStatus];
                     });
                     
+                }else{
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [SVProgressHUD dismiss];
+                    });
                 }
             }];
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [SVProgressHUD dismiss];
-            });
+
         });
         
         
@@ -395,22 +398,23 @@ typedef enum ActiveField : NSUInteger {
             int channelID = [UserHandler sharedInstance].mySelf.statusChannel;
             Channel *channel = [[Channel alloc] initChannelWithID:channelID];
             
-            NSArray *memberOfSameStatus = [[UserHandler sharedInstance] getAllUsersOfSameStatus];
-            for (User *member in memberOfSameStatus) {
-                [channel addMember:member];
-            }
-            
             [[ChannelManager sharedInstance] setCurrentChannel:channel];
+            [ChannelManager sharedInstance].isChannelOpen = YES;
+            
+            //send then notification
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 3.0 * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                
+                [[MessageHandler sharedHandler] sendChanneljoiningMessageOf:channelID];
+            });
+            
             
             //navigate to chatview controller
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ChatVC *chatVC = (ChatVC *)[storyboard instantiateViewControllerWithIdentifier:@"ChatVCID"];
             
+            chatVC.currentActiveChannel = [ChannelManager sharedInstance].currentChannel;
             
-            chatVC.currentActiveChannel = [[ChannelManager sharedInstance] currentChannel];
-            
-            //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
-            //self.navigationController
             [self.navigationController pushViewController:chatVC animated:YES];
         }
     }
@@ -421,25 +425,28 @@ typedef enum ActiveField : NSUInteger {
     
     if(alertView.tag == 50){
         
-        NSArray *sameStatusUser = [[UserHandler sharedInstance] getAllUsersOfSameStatus];
-        if (buttonIndex == 0 && sameStatusUser.count) {
-            //search same status user
-            
-            NSString * statusStr = [UserHandler sharedInstance].mySelf.profileStatus;
-            
-            NSString *message =  [NSString stringWithFormat:@"Others have the same \"%@\" status as yours. Would you like to join them?", statusStr];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Chatting Request"
-                                                            message: message
-                                                           delegate: self
-                                                  cancelButtonTitle:@"Decline"
-                                                  otherButtonTitles:@"Accept", nil];
-            
-            alert.tag = 55;
-            [alert show];
-            
-            
-        }
+
+    }
+}
+
+-(void)checkForSimilarStatus{
+    
+    NSArray *sameStatusUser = [[UserHandler sharedInstance] getAllUsersOfSameStatus];
+    if (sameStatusUser.count) {
+        //search same status user
+        
+        NSString * statusStr = [UserHandler sharedInstance].mySelf.profileStatus;
+        
+        NSString *message =  [NSString stringWithFormat:@"Similar status found in nearest people. Would you like to chat them?"];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Chatting Request"
+                                                        message: message
+                                                       delegate: self
+                                              cancelButtonTitle:@"Decline"
+                                              otherButtonTitles:@"Accept", nil];
+        
+        alert.tag = 55;
+        [alert show];
     }
 }
 

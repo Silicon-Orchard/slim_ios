@@ -60,8 +60,8 @@
         _nameLabel.textColor = UIColorFromRGB(0x00a651);
         //[UIColor colorWithRed:34.0/255.0 green:97.0/255.0 blue:221.0/255.0 alpha:1];
 
-        self.balloonImageLeft = [UIImage imageNamed:@"bubble-left.png"];
-        self.balloonImageRight = [UIImage imageNamed:@"bubble-right.png"];
+        self.balloonImageLeft = [UIImage imageNamed:@"bubble_left.png"];
+        self.balloonImageRight = [UIImage imageNamed:@"bubble_right.png"];
 
         _balloonInsetsLeft = UIEdgeInsetsMake(BALLOON_INSET_TOP, BALLOON_INSET_RIGHT, BALLOON_INSET_BOTTOM, BALLOON_INSET_LEFT);
         _balloonInsetsRight = UIEdgeInsetsMake(BALLOON_INSET_TOP, BALLOON_INSET_LEFT, BALLOON_INSET_BOTTOM, BALLOON_INSET_RIGHT);
@@ -115,7 +115,8 @@
             _nameLabel.text = nameText;
         }
         // Set text color
-        _messageLabel.textColor = [UIColor darkTextColor];
+        //_messageLabel.textColor = [UIColor darkTextColor];
+        _messageLabel.textColor = [UIColor whiteColor];
         // Set resizeable image
         _balloonView.image = [self.balloonImageLeft resizableImageWithCapInsets:_balloonInsetsLeft];
     }

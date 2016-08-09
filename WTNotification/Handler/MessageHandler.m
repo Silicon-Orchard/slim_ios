@@ -398,6 +398,33 @@
     }
 }
 
+-(void)sendSelfPresenceMessageToNetwork{
+    
+    NSString *requestInfoMessage = [self requestInfoAtStartMessage];
+    
+    NSString *myIP = [UserHandler sharedInstance].mySelf.deviceIP;
+    BOOL successfullIP = [self isValidIPAddress:myIP];
+    
+    if(successfullIP){
+        
+        NSArray *ipArray = [myIP componentsSeparatedByString:@"."];
+        NSString *ipThreeSegments = [NSString stringWithFormat:@"%@.%@.%@.", [ipArray objectAtIndex:0], [ipArray objectAtIndex:1], [ipArray objectAtIndex:2]];
+        
+        [[ConnectionHandler sharedHandler] enableBroadCast];
+        
+        for (int i =1 ; i<=254; i++) {
+            
+            NSString *ipAddressTosendData = [NSString stringWithFormat:@"%@%d", ipThreeSegments, i];
+            
+            if (![ipAddressTosendData isEqualToString:myIP]) {
+                
+                NSLog(@"ip to send %@", ipAddressTosendData);
+                [[ConnectionHandler sharedHandler] sendMessage:requestInfoMessage toIPAddress:ipAddressTosendData];
+            }
+        }
+    }
+    
+}
 
 
 @end
