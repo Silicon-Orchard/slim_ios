@@ -125,6 +125,10 @@
 //    }
 //}
 
+-(void)removeAllUsers{
+    
+    [self.usersArray removeAllObjects];
+}
 
 -(void)removeUserofIP:(NSString *)ip andDeviceID:(NSString *)deviceID {
     

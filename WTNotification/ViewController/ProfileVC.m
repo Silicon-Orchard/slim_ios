@@ -183,25 +183,35 @@ typedef enum ActiveField : NSUInteger {
 - (void)keyboardWasShown:(NSNotification*)aNotification
 {
     
-    
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    self.scrollView.contentInset = contentInsets;
-    self.scrollView.scrollIndicatorInsets = contentInsets;
-    
-    // If active text field is hidden by keyboard, scroll it so it's visible
-    // Your application might not need or want this behavior.
-    CGRect aRect = self.view.frame;
-    aRect.size.height -= kbSize.height;
-    
+
     if(activeField == kActiveTextField){
+        
+
+        UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+        self.scrollView.contentInset = contentInsets;
+        self.scrollView.scrollIndicatorInsets = contentInsets;
+        
+        // If active text field is hidden by keyboard, scroll it so it's visible
+        // Your application might not need or want this behavior.
+        CGRect aRect = self.view.frame;
+        aRect.size.height -= kbSize.height;
         
         if (!CGRectContainsPoint(aRect, activeTextField.frame.origin) ) {
             CGPoint scrollPoint = CGPointMake(0.0, activeTextField.frame.origin.y-kbSize.height);
             [self.scrollView setContentOffset:scrollPoint animated:YES];
         }
     }else{
+        
+        UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height-10, 0.0);
+        self.scrollView.contentInset = contentInsets;
+        self.scrollView.scrollIndicatorInsets = contentInsets;
+        
+        // If active text field is hidden by keyboard, scroll it so it's visible
+        // Your application might not need or want this behavior.
+        CGRect aRect = self.view.frame;
+        aRect.size.height -= (kbSize.height-10);
         
         if (!CGRectContainsPoint(aRect, activeTextView.frame.origin) ) {
             
@@ -504,7 +514,19 @@ typedef enum ActiveField : NSUInteger {
     
     if (([touch.view isDescendantOfView:self.statusPopupView])) {//change it to your condition
         
-        if (!([touch.view isDescendantOfView:self.writeStatusTextView])) {
+        if (([touch.view isDescendantOfView:self.writeStatusTextView])) {
+            //[self.view endEditing:YES];
+            
+        }else if(([touch.view isDescendantOfView:self.WriteStatusBtn])) {
+            
+            float duration = 0.3f;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                
+                [self.view endEditing:YES];
+            });
+            
+        }else{
+            
             [self.view endEditing:YES];
         }
         
@@ -654,6 +676,16 @@ typedef enum ActiveField : NSUInteger {
     [self presentViewController:picker animated:YES completion:NULL];
 }
 
+- (IBAction)tapOnUsernameEditBtn:(id)sender {
+    
+    [self.usernameTF becomeFirstResponder];
+}
+
+- (IBAction)tapOnStatusEditBtn:(id)sender {
+    
+    [self.statusTF becomeFirstResponder];
+}
+
 #pragma mark - StatusPopup
 
 -(void)toggleStatusPopupView {
@@ -707,7 +739,6 @@ typedef enum ActiveField : NSUInteger {
 - (IBAction)writeStatusBtnPress:(id)sender {
     
     
-    
     if(!isWriting){
         
         isWriting = YES;
@@ -731,8 +762,13 @@ typedef enum ActiveField : NSUInteger {
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     
-//    if ([text isEqualToString:@"\n"]) {
-//        [textView resignFirstResponder];
+//    if (textView.text.length > 1 || (text.length > 0 && ![text isEqualToString:@""]))
+//    {
+//        self.WriteStatusBtn.enabled = YES;
+//    }
+//    else
+//    {
+//        self.WriteStatusBtn.enabled = NO;
 //    }
     
     return textView.text.length + (text.length - range.length) <= 128;
@@ -753,6 +789,15 @@ typedef enum ActiveField : NSUInteger {
     NSLog(@"Did begin editing");
     activeField = kActiveTextView;
     activeTextView = textView;
+    
+//    if (textView.text.length > 0)
+//    {
+//        self.WriteStatusBtn.enabled = YES;
+//    }
+//    else
+//    {
+//        self.WriteStatusBtn.enabled = NO;
+//    }
 }
 
 

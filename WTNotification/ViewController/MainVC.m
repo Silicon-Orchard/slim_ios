@@ -251,6 +251,11 @@ static NSString * CellID = @"StatusCellID";
 
 - (IBAction)tapOnRefreshBtn:(id)sender {
     
+    [[UserHandler sharedInstance] removeAllUsers];
+    //Update the Table
+    self.userListArrays = [[UserHandler sharedInstance] getUsers];
+    [self.tableView reloadData];
+    
     [[MessageHandler sharedHandler] sendSelfPresenceMessageToNetwork];
 }
 @end

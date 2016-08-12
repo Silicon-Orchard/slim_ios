@@ -39,6 +39,12 @@
 - (IBAction)cameraBtnPress:(id)sender;
 
 
+- (IBAction)tapOnUsernameEditBtn:(id)sender;
+- (IBAction)tapOnStatusEditBtn:(id)sender;
+
+
+
+
 #pragma mark - StatusPopup
 
 @property (weak, nonatomic) IBOutlet UIView *statusPopupView;
